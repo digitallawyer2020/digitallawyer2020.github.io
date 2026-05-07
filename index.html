@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Law and Policy Centre Pvt. Ltd.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+/* ─── TOKENS ─────────────────────────────────── */
+:root {
+  --navy:    #0d1f3c;
+  --navy2:   #162b52;
+  --ink:     #1a1a1a;
+  --body:    #4a4a48;
+  --sub:     #888884;
+  --border:  #e4e3e0;
+  --bg:      #ffffff;
+  --soft:    #f5f4f1;
+  --muted:   #eeede9;
+  --yt:      #ff0000;
+  --yt2:     #cc0000;
+  --green:   #1a5c2a;
+  --gbg:     #eaf4ee;
+  --amber:   #7a4f00;
+  --abg:     #fff8ed;
+  --red:     #6e1a1a;
+  --rbg:     #fce8e8;
+  --sw: 228px;
+  --th: 54px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: 'EB Garamond', serif; font-size: 18px; line-height: 1.72; overflow-x: hidden; }
+
+/* ─── SIDEBAR ─────────────────────────────────── */
+#sb {
+  position: fixed; top: 0; left: 0; bottom: 0;
+  width: var(--sw); z-index: 300;
+  background: var(--navy);
+  display: flex; flex-direction: column;
+  transition: transform .28s ease;
+}
+.sb-top {
+  padding: 1.4rem 1.5rem 1.2rem;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer; flex-shrink: 0;
+}
+.sb-logo { height: 34px; width: auto; filter: invert(1) brightness(1.1); flex-shrink: 0; }
+.sb-name { font-family: 'Raleway', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.5); line-height: 1.5; }
+.sb-lbl { font-family: 'Raleway', sans-serif; font-size: 7.5px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.2); padding: .9rem 1.5rem .35rem; }
+.sb-nav { display: flex; flex-direction: column; padding: 0 .7rem; flex: 1; }
+.sb-a {
+  font-family: 'Raleway', sans-serif; font-size: 10.5px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.45); padding: .6rem .8rem;
+  border: none; border-left: 2px solid transparent;
+  background: transparent; cursor: pointer; width: 100%; text-align: left;
+  display: flex; align-items: center; gap: 9px;
+  transition: color .18s, border-color .18s, background .18s;
+}
+.sb-a:hover { color: rgba(255,255,255,.85); background: rgba(255,255,255,.04); }
+.sb-a.on { color: #fff; border-left-color: #fff; background: rgba(255,255,255,.07); }
+.sb-ic { font-size: 13px; opacity: .55; flex-shrink: 0; }
+.sb-div { height: 1px; background: rgba(255,255,255,.07); margin: .6rem .8rem; }
+.sb-foot { padding: .9rem 1.5rem; border-top: 1px solid rgba(255,255,255,.07); font-family: 'Raleway', sans-serif; font-size: 7.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.18); line-height: 1.7; flex-shrink: 0; }
+
+/* ─── TOP BAR ─────────────────────────────────── */
+#tb {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: var(--th);
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 2rem 0 calc(var(--sw) + 2rem);
+}
+.tb-lbl { font-family: 'Raleway', sans-serif; font-size: 8.5px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--sub); margin-right: .6rem; }
+.tb-links { display: flex; gap: .2rem; }
+.tb-btn {
+  font-family: 'Raleway', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase;
+  padding: 7px 15px; background: transparent; color: var(--sub);
+  border: 1px solid transparent; cursor: pointer;
+  transition: all .18s; white-space: nowrap; border-radius: 2px;
+}
+.tb-btn:hover { color: var(--navy); border-color: var(--border); }
+.tb-btn.on { color: var(--navy); background: var(--soft); border-color: var(--border); }
+.tb-cta {
+  margin-left: auto;
+  font-family: 'Raleway', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  padding: 9px 22px; background: var(--navy); color: #fff;
+  border: none; cursor: pointer; transition: background .2s; border-radius: 2px;
+}
+.tb-cta:hover { background: var(--navy2); }
+.hbg { display: none; background: none; border: none; color: var(--navy); font-size: 22px; cursor: pointer; padding: 0 .5rem; }
+
+/* ─── LAYOUT ──────────────────────────────────── */
+#app { margin-left: var(--sw); padding-top: var(--th); }
+.pg { display: none; }
+.pg.on { display: block; }
+
+/* ─── SHARED ──────────────────────────────────── */
+.si { max-width: 1080px; margin: 0 auto; padding: 0 3.5rem; }
+.ey { font-family: 'Raleway', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: .26em; text-transform: uppercase; color: var(--navy); opacity: .6; margin-bottom: .9rem; display: flex; align-items: center; gap: 10px; }
+.ey::before { content: ''; width: 22px; height: 1px; background: var(--navy); opacity: .5; }
+.ey.lt { color: #fff; opacity: .5; }
+.ey.lt::before { background: #fff; opacity: .35; }
+.ht { font-family: 'Playfair Display', serif; font-size: clamp(27px, 2.6vw, 44px); font-weight: 700; line-height: 1.1; }
+.ht.wh { color: #fff; }
+.ru { width: 38px; height: 2px; background: var(--navy); opacity: .2; margin: 1.4rem 0; }
+.ru.wh { background: #fff; opacity: .25; }
+.rv { opacity: 0; transform: translateY(18px); transition: opacity .65s, transform .65s; }
+.rv.in { opacity: 1; transform: none; }
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* ─── HERO ────────────────────────────────────── */
+.hero { min-height: calc(100vh - var(--th)); background: var(--bg); display: grid; grid-template-columns: 1fr 400px; }
+.hero-l { display: flex; flex-direction: column; justify-content: center; padding: 5rem 4rem 5rem 3.5rem; border-right: 1px solid var(--border); }
+.h-tag { font-family: 'Raleway', sans-serif; font-size: 9.5px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--navy); opacity: .55; display: flex; align-items: center; gap: 12px; margin-bottom: 2.5rem; }
+.h-tag::before { content: ''; width: 28px; height: 1px; background: var(--navy); opacity: .4; }
+.h-ttl { font-family: 'Playfair Display', serif; font-size: clamp(44px, 5.2vw, 74px); font-weight: 700; color: var(--ink); line-height: 1.02; margin-bottom: 2rem; }
+.h-ttl em { font-style: italic; font-weight: 400; color: var(--navy); opacity: .5; }
+.h-p { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; color: var(--body); line-height: 1.78; max-width: 420px; margin-bottom: 3rem; }
+.h-acts { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-n { font-family: 'Raleway', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; padding: 13px 30px; background: var(--navy); color: #fff; border: none; cursor: pointer; border-radius: 2px; transition: background .2s; }
+.btn-n:hover { background: var(--navy2); }
+.btn-g { font-family: 'Raleway', sans-serif; font-size: 10.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; padding: 13px 30px; background: transparent; color: var(--navy); border: 1.5px solid var(--border); cursor: pointer; border-radius: 2px; transition: border-color .2s; }
+.btn-g:hover { border-color: var(--navy); }
+.hero-r { display: flex; flex-direction: column; justify-content: center; padding: 5rem 3rem; background: var(--soft); }
+.h-q { font-family: 'Playfair Display', serif; font-size: 18px; font-style: italic; color: var(--sub); line-height: 1.65; padding-left: 1.4rem; border-left: 2px solid var(--border); margin-bottom: 3rem; }
+.h-st { padding: 1.2rem 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: baseline; }
+.h-st:last-child { border-bottom: 1px solid var(--border); }
+.h-sn { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--navy); }
+.h-sl { font-family: 'Raleway', sans-serif; font-size: 9px; letter-spacing: .13em; text-transform: uppercase; color: var(--sub); }
+
+/* ─── ABOUT ───────────────────────────────────── */
+.about { padding: 7rem 0; background: var(--bg); }
+.ab-g { display: grid; grid-template-columns: 1fr 1fr; gap: 5.5rem; margin-top: 3.5rem; }
+.ab-bd { font-family: 'EB Garamond', serif; font-size: 18px; line-height: 1.85; color: var(--body); }
+.ab-bd p + p { margin-top: 1.1em; }
+.pils { display: flex; flex-direction: column; }
+.pil { padding: 1.6rem 0; border-top: 1px solid var(--border); transition: padding-left .22s; }
+.pil:last-child { border-bottom: 1px solid var(--border); }
+.pil:hover { padding-left: 8px; }
+.pil-n { font-family: 'Raleway', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: .14em; color: var(--sub); margin-bottom: .3rem; }
+.pil-t { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: .35rem; }
+.pil-d { font-family: 'EB Garamond', serif; font-size: 15.5px; color: var(--body); line-height: 1.6; }
+
+/* ─── PRACTICE ────────────────────────────────── */
+.prac { padding: 7rem 0; background: var(--soft); }
+.pr-g { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; margin-top: 4rem; background: var(--border); }
+.pr-c { background: var(--bg); padding: 2.25rem 1.75rem; position: relative; transition: background .2s; }
+.pr-c::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--navy); transform: scaleX(0); transition: transform .28s; transform-origin: left; }
+.pr-c:hover { background: var(--soft); }
+.pr-c:hover::after { transform: scaleX(1); }
+.pr-ic { font-size: 24px; margin-bottom: 1.2rem; display: block; }
+.pr-t { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: .7rem; line-height: 1.25; }
+.pr-d { font-family: 'EB Garamond', serif; font-size: 15px; color: var(--body); line-height: 1.65; }
+.pr-tg { display: inline-block; margin-top: 1.1rem; font-family: 'Raleway', sans-serif; font-size: 8.5px; letter-spacing: .15em; text-transform: uppercase; color: var(--navy); border: 1px solid var(--border); padding: 3px 10px; opacity: .7; }
+
+/* ─── DIGITAL LAWYER ──────────────────────────── */
+.dl { padding: 7rem 0; background: var(--bg); }
+.dl-intro { font-family: 'EB Garamond', serif; font-size: 18px; color: var(--body); line-height: 1.8; max-width: 600px; margin-bottom: 2.5rem; }
+.dl-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.yt-card { background: var(--ink); display: block; text-decoration: none; position: relative; overflow: hidden; transition: transform .22s; }
+.yt-card:hover { transform: translateY(-3px); }
+.yt-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--yt); }
+.tt-card { background: var(--ink); display: block; text-decoration: none; position: relative; overflow: hidden; transition: transform .22s; }
+.tt-card:hover { transform: translateY(-3px); }
+.tt-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg,#69C9D0,#EE1D52); }
+.card-in { padding: 2.25rem; }
+.yt-lbl { font-family: 'Raleway', sans-serif; font-size: 8.5px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--yt); margin-bottom: .9rem; }
+.tt-lbl { font-family: 'Raleway', sans-serif; font-size: 8.5px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; margin-bottom: .9rem; }
+.tt-lbl .cy { color: #69C9D0; } .tt-lbl .rd { color: #EE1D52; }
+.dc-ttl { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: .75rem; }
+.dc-dsc { font-family: 'EB Garamond', serif; font-size: 15px; color: rgba(255,255,255,.5); line-height: 1.65; margin-bottom: 1.75rem; }
+.yt-play { display: flex; align-items: center; gap: 1rem; }
+.yt-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--yt); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background .2s, transform .2s; }
+.yt-card:hover .yt-btn { background: var(--yt2); transform: scale(1.08); }
+.yt-tri { width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 16px solid #fff; margin-left: 3px; }
+.yt-cta { font-family: 'Raleway', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; color: rgba(255,255,255,.6); }
+.yt-ch { font-family: 'Raleway', sans-serif; font-size: 8.5px; letter-spacing: .1em; color: rgba(255,255,255,.3); margin-top: 3px; }
+.tt-stat { display: flex; align-items: baseline; gap: .6rem; margin-bottom: 1.2rem; }
+.tt-num { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 700; color: #fff; line-height: 1; }
+.tt-nl { font-family: 'Raleway', sans-serif; font-size: 9.5px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; color: rgba(255,255,255,.4); }
+.tt-fol { display: inline-flex; align-items: center; gap: 7px; font-family: 'Raleway', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: #fff; background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.14); padding: 9px 16px; border-radius: 2px; transition: background .2s; }
+.tt-card:hover .tt-fol { background: rgba(255,255,255,.17); }
+.dl-types { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; margin-top: 1.5rem; background: var(--border); }
+.dl-tp { background: var(--bg); padding: 1.75rem; }
+.dl-tn { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--muted); line-height: 1; margin-bottom: .55rem; }
+.dl-tt { font-family: 'Playfair Display', serif; font-size: 15.5px; font-weight: 700; color: var(--ink); margin-bottom: .3rem; }
+.dl-td { font-family: 'EB Garamond', serif; font-size: 14.5px; color: var(--body); line-height: 1.6; }
+
+/* ─── BAR PREP ────────────────────────────────── */
+.bp { padding: 7rem 0; background: var(--soft); }
+.bp-g { display: grid; grid-template-columns: 240px 1fr; gap: 5rem; align-items: start; margin-top: 3.5rem; }
+.bp-bdg { background: var(--navy); padding: 2.5rem 2rem; text-align: center; }
+.bp-yr { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 700; color: #fff; }
+.bp-lb { font-family: 'Raleway', sans-serif; font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.42); }
+.bp-dv { width: 28px; height: 1px; background: rgba(255,255,255,.12); margin: 1.2rem auto; }
+.bp-nt { font-family: 'EB Garamond', serif; font-size: 14px; color: rgba(255,255,255,.38); font-style: italic; line-height: 1.5; }
+.bp-bd { font-family: 'EB Garamond', serif; font-size: 17.5px; color: var(--body); line-height: 1.8; margin-bottom: 2.5rem; }
+.bp-fs { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.bp-f { padding: 1.5rem; border: 1px solid var(--border); margin: -1px 0 0 -1px; background: var(--bg); transition: background .2s; }
+.bp-f:hover { background: var(--soft); }
+.bp-fi { font-size: 19px; margin-bottom: .45rem; }
+.bp-ft { font-family: 'Playfair Display', serif; font-size: 14.5px; font-weight: 700; color: var(--ink); margin-bottom: .2rem; }
+.bp-fd { font-family: 'EB Garamond', serif; font-size: 14px; color: var(--sub); }
+
+/* ─── TEAM ────────────────────────────────────── */
+.team { padding: 7rem 0; background: var(--bg); }
+.fc { margin-top: 4rem; display: grid; grid-template-columns: 260px 1fr; border: 1px solid var(--border); }
+.fc-l { background: var(--navy); padding: 2.5rem; display: flex; flex-direction: column; justify-content: flex-end; min-height: 360px; position: relative; overflow: hidden; border-right: 1px solid rgba(255,255,255,.06); }
+.fc-mn { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-60%); font-family: 'Playfair Display', serif; font-size: 80px; font-weight: 900; color: rgba(255,255,255,.05); pointer-events: none; user-select: none; }
+.fc-nm { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #fff; }
+.fc-rl { font-family: 'Raleway', sans-serif; font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.38); margin-top: .35rem; }
+.fc-r { padding: 2.5rem 3rem; background: var(--bg); }
+.fc-bi { font-family: 'EB Garamond', serif; font-size: 17px; color: var(--body); line-height: 1.8; margin-bottom: 1.75rem; }
+.cds { display: flex; flex-wrap: wrap; gap: .45rem; }
+.cd { font-family: 'Raleway', sans-serif; font-size: 8.5px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; border: 1px solid var(--border); padding: 5px 12px; color: var(--sub); border-radius: 2px; transition: all .2s; cursor: default; }
+.cd:hover { border-color: var(--navy); color: var(--navy); }
+
+/* ─── CONTACT ─────────────────────────────────── */
+.contact { padding: 7rem 0; background: var(--soft); }
+.co-g { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; margin-top: 3.5rem; }
+.co-ttl { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 1rem; line-height: 1.3; }
+.co-dsc { font-family: 'EB Garamond', serif; font-size: 17px; color: var(--body); line-height: 1.75; }
+.cf { display: flex; flex-direction: column; gap: 1.1rem; margin-top: .5rem; }
+.f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.ff { display: flex; flex-direction: column; gap: .32rem; }
+.fl { font-family: 'Raleway', sans-serif; font-size: 8.5px; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; color: var(--sub); }
+.fi { font-family: 'EB Garamond', serif; font-size: 17px; padding: 10px 13px; background: var(--bg); border: 1px solid var(--border); color: var(--ink); outline: none; border-radius: 2px; transition: border-color .2s; width: 100%; }
+.fi:focus { border-color: var(--navy); }
+textarea.fi { resize: vertical; min-height: 110px; }
+.fs { font-family: 'Raleway', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; padding: 14px 30px; background: var(--navy); color: #fff; border: none; cursor: pointer; border-radius: 2px; align-self: flex-start; transition: background .2s; }
+.fs:hover { background: var(--navy2); }
+#fst { font-family: 'Raleway', sans-serif; font-size: 10.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; padding: 8px 0; display: none; }
+
+/* ─── FOOTER ──────────────────────────────────── */
+footer { background: var(--navy); padding: 2.5rem 0; }
+.ft-in { max-width: 1080px; margin: 0 auto; padding: 0 3.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.25rem; }
+.ft-nm { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: rgba(255,255,255,.6); }
+.ft-sb { font-family: 'Raleway', sans-serif; font-size: 8.5px; letter-spacing: .13em; text-transform: uppercase; color: rgba(255,255,255,.25); margin-top: 2px; }
+.ft-cp { font-family: 'Raleway', sans-serif; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.28); }
+
+/* ─────────────────────────────────────────────────
+   RESOURCE PAGES
+───────────────────────────────────────────────── */
+.rh { background: var(--navy); padding: 3.25rem 3.5rem 2.75rem; }
+.rh-ey { font-family: 'Raleway', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: .85rem; display: flex; align-items: center; gap: 10px; }
+.rh-ey::before { content: ''; width: 18px; height: 1px; background: rgba(255,255,255,.25); }
+.rh h1 { font-family: 'Playfair Display', serif; font-size: clamp(28px,3.2vw,48px); font-weight: 700; color: #fff; line-height: 1.08; margin-bottom: .85rem; }
+.rh h1 em { font-style: italic; font-weight: 400; color: rgba(255,255,255,.38); }
+.rh-dsc { font-family: 'EB Garamond', serif; font-size: 16.5px; color: rgba(255,255,255,.48); line-height: 1.65; max-width: 660px; margin-bottom: 1.4rem; }
+.rh-mt { display: flex; gap: 2rem; flex-wrap: wrap; }
+.rh-mi { font-family: 'Raleway', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.27); }
+.rh-mi span { color: rgba(255,255,255,.55); }
+
+/* Tabs inside resource pages */
+.rtabs { background: var(--bg); border-bottom: 1px solid var(--border); display: flex; padding: 0 3.5rem; }
+.rt { font-family: 'Raleway', sans-serif; font-size: 9.5px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; padding: 1rem 1.5rem; cursor: pointer; color: var(--sub); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .2s; background: none; border-left: none; border-right: none; border-top: none; }
+.rt:hover:not(.on) { color: var(--ink); }
+.rt.on { color: var(--navy); border-bottom-color: var(--navy); }
+.rp { display: none; }
+.rp.on { display: block; }
+
+.rm { max-width: 1180px; margin: 0 auto; padding: 3rem 3.5rem; }
+.rsh { margin-bottom: 2.25rem; padding-bottom: 1.75rem; border-bottom: 1px solid var(--border); }
+.rsh h2 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--ink); margin-bottom: .4rem; }
+.rsh p { font-family: 'EB Garamond', serif; font-size: 16px; color: var(--body); line-height: 1.65; max-width: 760px; }
+
+/* Badges */
+.bx { display: inline-flex; align-items: center; gap: 4px; font-family: 'Raleway', sans-serif; font-size: 8px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; padding: 3px 9px; white-space: nowrap; border-radius: 2px; }
+.b-ok { color: var(--green); background: var(--gbg); }
+.b-dr { color: var(--amber); background: var(--abg); }
+.b-no { color: var(--red); background: var(--rbg); }
+.b-sg { color: var(--amber); background: var(--abg); }
+.b-mb { color: var(--green); background: var(--gbg); }
+
+/* Alert */
+.alrt { background: var(--ink); color: #fff; padding: 1rem 1.6rem; margin-bottom: 2rem; display: flex; align-items: flex-start; gap: 1.2rem; border-radius: 2px; }
+.al-ic { font-size: 17px; flex-shrink: 0; margin-top: 2px; }
+.al-tx { font-family: 'EB Garamond', serif; font-size: 15px; color: rgba(255,255,255,.68); line-height: 1.6; }
+.al-tx strong { color: #fff; }
+
+/* ─── FLIP CARDS ──────────────────────────────── */
+.fgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(285px,1fr)); gap: 1.4rem; margin-top: 2rem; }
+.fw { perspective: 1000px; height: 370px; }
+.fi2 { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .55s cubic-bezier(.4,0,.2,1); }
+.fw.flip .fi2 { transform: rotateY(180deg); }
+.ff2 { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; overflow: hidden; }
+
+/* Front */
+.ffr { background: var(--bg); border: 1px solid var(--border); display: flex; flex-direction: column; transition: border-color .2s, box-shadow .2s; }
+.fw:hover .ffr { border-color: var(--navy); box-shadow: 0 3px 14px rgba(13,31,60,.07); }
+.ffr-body { padding: 1.6rem 1.6rem 1.2rem; flex: 1; display: flex; flex-direction: column; }
+.ffr-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: .85rem; }
+.fcat { font-family: 'Raleway', sans-serif; font-size: 8px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--sub); }
+.fttl { font-family: 'Playfair Display', serif; font-size: 15.5px; font-weight: 700; line-height: 1.25; color: var(--ink); margin-bottom: .3rem; }
+.fyr { font-family: 'Raleway', sans-serif; font-size: 9px; font-weight: 600; color: var(--sub); margin-bottom: .65rem; letter-spacing: .06em; }
+.fdsc { font-family: 'EB Garamond', serif; font-size: 14px; color: var(--body); line-height: 1.58; flex: 1; }
+/* Button strip pinned at bottom */
+.ffr-foot { padding: .9rem 1.6rem; border-top: 1px solid var(--border); background: var(--soft); }
+.fbtn { width: 100%; font-family: 'Raleway', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding: 10px 0; background: var(--navy); color: #fff; border: none; cursor: pointer; border-radius: 2px; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background .2s; }
+.fbtn:hover { background: var(--navy2); }
+.fbtn-ic { font-size: 15px; }
+
+/* Back */
+.fbk { background: var(--navy); display: flex; flex-direction: column; transform: rotateY(180deg); }
+.fbk-head { padding: 1.4rem 1.6rem .9rem; border-bottom: 1px solid rgba(255,255,255,.09); }
+.fbk-ttl { font-family: 'Playfair Display', serif; font-size: 14.5px; font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: .18rem; }
+.fbk-act { font-family: 'Raleway', sans-serif; font-size: 8px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; color: rgba(255,255,255,.35); }
+.frts { list-style: none; flex: 1; padding: .4rem 1.6rem; display: flex; flex-direction: column; justify-content: space-evenly; }
+.fri { display: flex; align-items: flex-start; gap: .75rem; padding: .4rem 0; }
+.fri-ck { font-size: 11px; color: rgba(255,255,255,.42); flex-shrink: 0; margin-top: 1px; line-height: 1.4; }
+.fri-tx { font-family: 'Raleway', sans-serif; font-size: 10px; font-weight: 500; color: rgba(255,255,255,.8); line-height: 1.38; letter-spacing: .01em; }
+.fbk-foot { padding: .9rem 1.6rem; border-top: 1px solid rgba(255,255,255,.08); }
+.fbk-btn { width: 100%; font-family: 'Raleway', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding: 9px 0; background: rgba(255,255,255,.07); color: rgba(255,255,255,.58); border: 1px solid rgba(255,255,255,.13); cursor: pointer; border-radius: 2px; display: flex; align-items: center; justify-content: center; gap: 7px; transition: background .2s; }
+.fbk-btn:hover { background: rgba(255,255,255,.14); }
+
+/* ─── LAW TABLE ───────────────────────────────── */
+.fbar { display: flex; gap: .35rem; flex-wrap: wrap; margin-bottom: 1.75rem; align-items: center; }
+.flbl { font-family: 'Raleway', sans-serif; font-size: 8.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--sub); margin-right: .25rem; }
+.fb { font-family: 'Raleway', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; padding: 5px 12px; background: var(--bg); color: var(--sub); border: 1px solid var(--border); cursor: pointer; border-radius: 2px; transition: all .18s; }
+.fb.on,.fb:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
+.srch { font-family: 'EB Garamond', serif; font-size: 16px; padding: 6px 13px; border: 1px solid var(--border); color: var(--ink); outline: none; min-width: 190px; transition: border-color .2s; margin-left: auto; border-radius: 2px; background: var(--bg); }
+.srch:focus { border-color: var(--navy); }
+.ltbl { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.ltbl th { font-family: 'Raleway', sans-serif; font-size: 8.5px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--sub); padding: .65rem 1rem; text-align: left; border-bottom: 1px solid var(--border); background: var(--soft); }
+.ltbl td { padding: .85rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+.ltbl tr:hover td { background: var(--soft); }
+.ltbl tr.hid { display: none; }
+.lnm { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.3; }
+.lnp { font-family: 'EB Garamond', serif; font-size: 12.5px; color: var(--sub); font-style: italic; margin-top: 1px; }
+.lyr { font-family: 'Raleway', sans-serif; font-size: 11px; font-weight: 600; color: var(--body); white-space: nowrap; }
+.lct { font-family: 'Raleway', sans-serif; font-size: 8px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--sub); }
+.ldc { font-family: 'EB Garamond', serif; font-size: 13.5px; color: var(--body); line-height: 1.55; }
+.lsc a { font-family: 'Raleway', sans-serif; font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--sub); text-decoration: none; border-bottom: 1px solid var(--border); transition: color .2s; }
+.lsc a:hover { color: var(--navy); }
+.nores { text-align: center; padding: 2.5rem; color: var(--sub); font-family: 'Playfair Display', serif; font-size: 20px; font-style: italic; }
+
+/* ─── TREATY ──────────────────────────────────── */
+.tsc { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; margin-bottom: 2.5rem; }
+.tsc-c { background: var(--bg); border: 1px solid var(--border); padding: 1.5rem 1.25rem; text-align: center; border-radius: 2px; }
+.tsc-n { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; }
+.gn{color:var(--green)}.am{color:#b45309}.rd{color:var(--red)}.dk{color:var(--body)}
+.tsc-l { font-family: 'Raleway', sans-serif; font-size: 8.5px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; color: var(--sub); margin-top: .2rem; }
+.tgrp { margin-bottom: 2.5rem; }
+.tgrp-t { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--ink); padding-bottom: .6rem; border-bottom: 1px solid var(--border); margin-bottom: 0; }
+.ttbl { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.ttbl th { font-family: 'Raleway', sans-serif; font-size: 8.5px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--sub); padding: .6rem 1rem; text-align: left; border-bottom: 1px solid var(--border); background: var(--soft); }
+.ttbl td { padding: .85rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+.ttbl tr:hover td { background: var(--soft); }
+.tnm { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.3; }
+.tab { font-family: 'Raleway', sans-serif; font-size: 8.5px; font-weight: 700; letter-spacing: .1em; color: var(--sub); margin-top: 2px; }
+.tyr { font-family: 'Raleway', sans-serif; font-size: 11px; font-weight: 600; color: var(--body); }
+.tnt { font-family: 'EB Garamond', serif; font-size: 13.5px; color: var(--body); line-height: 1.55; }
+.tnt.gp { color: #92400e; }
+
+.dbox { margin-top: 2rem; padding: 1.25rem 1.75rem; background: var(--soft); border-left: 2.5px solid var(--border); }
+.dbox-l { font-family: 'Raleway', sans-serif; font-size: 8.5px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--sub); margin-bottom: .35rem; }
+.dbox p { font-family: 'EB Garamond', serif; font-size: 15px; color: var(--body); line-height: 1.65; }
+.dbox a { color: var(--navy); text-decoration: none; border-bottom: 1px solid var(--border); }
+.dbox a:hover { border-color: var(--navy); }
+
+.rft { background: var(--navy); padding: 2rem 3.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-top: 3rem; }
+.rft-nm { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; color: rgba(255,255,255,.58); }
+.rft-sb { font-family: 'Raleway', sans-serif; font-size: 8.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.24); margin-top: 2px; }
+.rft-ds { font-family: 'EB Garamond', serif; font-size: 13.5px; color: rgba(255,255,255,.3); max-width: 480px; line-height: 1.5; }
+
+/* ─── MOBILE ──────────────────────────────────── */
+@media(max-width:900px){
+  #sb{transform:translateX(-100%);}
+  #sb.open{transform:translateX(0);}
+  #app{margin-left:0;}
+  #tb{padding-left:.5rem;}
+  .hbg{display:block;}
+  .tb-lbl{display:none;}
+  .tb-btn{padding:6px 9px;font-size:9px;}
+  .hero{grid-template-columns:1fr;}
+  .hero-r{display:none;}
+  .hero-l{padding:4rem 1.5rem 3rem;}
+  .ab-g,.co-g{grid-template-columns:1fr;gap:3rem;}
+  .bp-g{grid-template-columns:1fr;gap:3rem;}
+  .pr-g,.dl-cards,.dl-types{grid-template-columns:1fr;}
+  .bp-fs,.f2{grid-template-columns:1fr;}
+  .fc{grid-template-columns:1fr;}
+  .fc-l{min-height:180px;}
+  .tsc{grid-template-columns:repeat(2,1fr);}
+  .fgrid{grid-template-columns:1fr;}
+  .si,.rm,.rh,.rtabs,.rft,.ft-in{padding-left:1.25rem;padding-right:1.25rem;}
+  .srch{margin-left:0;width:100%;}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside id="sb">
+  <div class="sb-top" onclick="goHome()">
+    <img class="sb-logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgAAgESAAMAAAABAAEAAIdpAAQAAAABAAAAJgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAGG6ADAAQAAAABAAAGGwAAAAD/7QA4UGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAAA4QklNBCUAAAAAABDUHYzZjwCyBOmACZjs+EJ+/8AAEQgGGwYbAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/bAEMAAgICAgICBAICBAYEBAQGCAYGBgYICggICAgICgwKCgoKCgoMDAwMDAwMDA4ODg4ODhAQEBAQEhISEhISEhISEv/bAEMBAwMDBQQFCAQECBMNCw0TExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTE//dAAQAYv/aAAwDAQACEQMRAD8A/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//Q/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//R/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//S/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//T/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//U/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//V/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//W/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//X/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//Q/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//R/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//S/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//T/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//U/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//V/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//W/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//X/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//Q/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//R/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//S/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//T/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//U/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//V/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//W/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//X/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//Q/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKK/Az/AIKh/Fz4rfD39ovSrDwF4m1XRIH8P20rRWF5Pbozm6ugWKxuoJIABJHIAFAm7H750V/I7Y/to/tV6cnl2/jzVmH/AE1m80/nIGNbkP7eX7XUP3PHF6f95IG/nGaBcx/WNRX8pcX/AAUH/bEh+541nP8AvWtm384DWhH/AMFG/wBs2MYXxmT9bDTz/O2NAcx/VJRX8r//AA8f/bP/AOhy/wDKdp3/AMi0f8PH/wBs/wD6HL/ynad/8i0BzH9UFFfytN/wUZ/bMbk+M2/Cw08fytqiP/BRP9sluvjR/wDwCsf/AJHoDmP6qqK/lQb/AIKG/tjN18aS/haWQ/8AaFQt/wAFB/2xG6+NZ/wtbMf+0KA5j+rWiv5RT/wUB/bBbr42uf8AwHtf/jNZ1x+3Z+1vc/6zxxfDP9xYU/8AQYxQHMf1l0V/I/J+2n+1ZL97x3qo+ku3+QFZ8n7YP7Ukv3vHutj6Xci/yIoDmP68KK/j9m/ar/aan+/8QPEI/wB3Ublf5OKzJf2lP2i5xibx/wCI3/3tVvD/ADloDmP7FaK/jZf4+fHWVt0vjXXmPqdSuj/7Uq1D+0V+0Fb/AOo8deIU/wB3U7sfyloDmP7HKK/j/s/2rv2m7H/U/EDxA3/XTULiT/0N2rrdP/bj/az0whrfxzqLY/56mOX/ANGI1Acx/WnRX8tmlf8ABSj9sTTWXz/E8d4q/wAM9hZ/qUhRv1r2Pw//AMFcP2iNO2x67pGh6ig6t5M8Mh/FZyv/AI5QHMj+jCivxY8I/wDBYrw9Nti8eeCbi2x96Wwu0mz7iOVIsfTzD9a+pPB//BTf9kvxTsTUNWvNDkfomoWkg59C1v5yD6lgPegd0foHRXmHgX42fCD4m4T4f+JtM1eQjPlWtzG8o/3ow29fxAr0+gYUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAf//R/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAK+LP2j/ANhX4SftOeL7fxz43v8AVbLULWzSxT7DLCkZjjkkkXcssMhJ3StkgjjFfadFAH436z/wR38ATg/8I/401C1Pb7RaxT4/74aHNeIeLv8Agj58T7CNpPA/i7TdUI523kMtmT9Nn2gZ+pA96/f+igXKj+SL4q/sYftKfByGbUPF/he5ksIAWa9ssXcAUfxM0JYxr7yBa+XK/uAr8l/2+/2DtC8e+HLz4xfBvTktPEdipnvrO3UIl/Coy7LGOBcKPmG3HmDIILFaCXE/nnooooJCiiigAooooAK6Lwp4R8UeOtet/C/g3T7jVNRum2xW9tG0kjevyqDwOpPQDk8Vh29vcXdwlpao0ksrBERQSzMxwAAOSSeAK/qm/Ym/ZQ0b9mf4bRNqkMcvivVo1k1S6GGKZ+ZbaNu0cffH33y3TaFBpXPzU+EH/BI74g+ILSPVfjJrsOgK6hvsVmourgZ/hkkysSEf7JkHvX2f4b/4JSfsv6NGv9sSaxq7j7xuLpY1J9hBHGQPxJ96/TCiguyPia0/4J0/sbWagJ4NVyOpkvr5s+/NwR+Qq9L/AME+f2PJRhvBUA/3bm8X+U4r7LooCx8Q3H/BOP8AY0uFI/4Q4IT3S/vxj/yYx+lcJqv/AASz/ZP1HP2S01Owz/zwvWOP+/qyV+jNFAWPyV1v/gkF8ELkE+HvEut2jHp55tpwPwWGI/rXjXiH/gjjqccbyeFPHkUz/wAMd3YNGPxkjmf/ANAr9z6KAsj+ZLxn/wAEu/2rfCweTSLLT9fjTnNhdqrEf7tyICT7DJ9M18aeOvg78V/hlKYviD4c1HRwDgPdW0kcbf7shXYw91JFf2cVHLFFPE0E6h0cFWVhkEHggg9QaBcp/EHRX9aXxR/Yj/Zk+LUckniDwta2V2+f9L00fY5gx/iJh2o5/wCuivX5jfGX/gkX4n0qKXVfgZry6qi5IsNTCwz47BJ0Aidj/tJEPeglxPxpjkkhkWWJirKQQQcEEdCDX1B8NP20f2mvhSyR+GfFt5Papj/Rb9vtkO0fwqs+8oP9wrXj3xF+E/xJ+EmsnQPiVol3o11ztW5jKrIB1Mb8pIv+0jEe9ee0CP22+Fn/AAWAvUeKx+NPhZZE4D3mjuVYe/2adiCT3xMv09P0/wDhB+1j+z/8cvLtvh/4jtpb6Qf8eNwTb3ee4EMu1nx3Kbl96/kKpyO8TiSMlWU5BHBBHcUDUj+36iv5cPgX/wAFEv2h/gzJDp2pX58U6NHgGz1RmkkVR2iueZUOOAGLoP7lftl+z1+338B/j9LBoUN2fD+vzYUadqBVDI57QTD93Lz0X5XP9ygtO59u0UUUDCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/0v38ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP5Hf2y/hhb/CL9pXxX4P06EQWJu/tdoijCLBdqJ0VP9lN5Qf7tfMNfq7/wV28Orp/x60HxJEMLqOiJG3u8E8oJ/wC+XUfhX5RUGT3CiiigAooooA+3f+Cd/wAOIPiP+1Z4eiv4hNaaL5urTKRkf6Mv7k/hO0Vf1R1+A3/BHnw9Hc/Erxj4rI+ay0yC0B9rqbef/ScV+/NBcdgooooKCiiigAooooAKKKKACiiigAooooA5Txr4F8HfEbw9N4U8d6Zb6tp1wPnguUDpnswzyrDswwwPIINfip+01/wSpu9NhuPGH7Ns73Ua5d9EunBlA6kW07Y347JJ82B99jgV+61FAmrn8SOsaNq/h7VJ9D161lsr21cxzQTo0ckbrwVdGAKkdwRWbX9ZP7UX7HXww/ad0Nm1qIab4ggQraatAg81cdEmHHnRZ/hY5HO1lJOf5ofjr+z/APEv9nbxi3g74j2Xks+5ra6jy1vdRg43wvgZHTKkBlyAwFBDVjxSgEg5FFFAj9IP2Yv+CkHxW+Cslv4Z+IjS+KvDa4TZM+by2UcfuZm5YAdI5CRwArIK/oF+Dnxy+GPx68Lr4t+GOqR38AwJovuT27kfcmiPzI3XGeGxlSRzX8bVejfCz4tfEH4L+LoPG/w31KXTb+HglOUlTOTHKhyroccqwI6EYIBoGpH9nVFfCn7IH7cngX9pjTI/Dur+Xo3i+CPM9gWwlwFGWltSxyy9zGSXTnO5RvP3XQaBRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAH/9P9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD8Lv+CyNgkerfD7VB96aHU4j9I2tWH/ow1+KFfub/AMFkod2n/D24/uyaov8A30LQ/wBK/DKgzluFFFFAgooooA/df/gjhp6R6D4+1UfemuNOi/CNbhv/AGev2pr8cv8AgjvGB8PPGcvc6jbD8oW/xr9jaDRbBRRRQMKKKKACiiigAooooAKKKKACiiigAooooAK8f+OHwN+H/wC0D4DuPAPxCtfOgk+eCdMCa2mAwssLkHaw/JhlWBBIr2CigD+QD9pH9nTxx+zR8Q5fA/i5fOgkBlsL5FIiu4M4DrnO1l6OhJKnuQVY/P1f2AftJ/s8eDv2lPhpc+BPFCCK5UNLp96FzJa3IGFceqnpImcMvoQCP5NPiL8PvFXwq8bal8PvGtsbXU9LmMMyHkHHKup/iR1IZG6FSDQZtWOKooooEaOkavqvh/VLfXNDuZbO8tJFlgnhYpJHIhyrKy4IIPIIr+jb9hf9vbT/AI7wQfC74pSR2njCGPEM3CRaiqDllAwFnAGXjAwwyyYGVX+birunajqGj6hBq2kzyW11ayLLDNExR45EO5WVhghlIBBHINA07H9udFfnZ+wV+2hb/tF+GT4I8dSxxeMtJiBlxhRfQLgfaEUcBwcCVRwCQy4DbV/ROg0CiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//1P38ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPxU/4LIf8AIE8Af9d9S/8AQbavwqr91f8Agsh/yBPAH/XfUv8A0G2r8KqDOW4UUUUCCiiigD99/wDgjx/yTjxl/wBhK3/9Emv2Jr8dv+CPH/JOPGX/AGErf/0Sa/Ymg0WwUUUUDCiiigAooooAKKKKACiiigAooooAKKKKACiiigAr8tf+Cmn7LkfxR+Hf/C5vB9tu8QeGYibpYx81zYDLODjq0HMi/wCzvHJ2gfqVTXRZFKOAysMEHkEGgGrn8QNFfZn7df7Pg/Z8+PF9pWjweVoOs51DS9o+RI5CfMhHp5MmVAznZsJ618Z0GQUUUUAdX4G8b+J/hv4u0/x14Mu3stT0yZZreZOoYdQR0ZWGVZTwykg5Br+sv9l/9ofw3+0t8KrTx7o22C9TEGpWYOTbXSgbl55KN96Nu6kZ+YED+Qmvr79iv9pe9/Zo+MEGt3zu3h7Vdtpq8K5P7kn5ZlUdXhJ3DjJUsoxuzQOLsf1hUVVsb2z1Kyh1HTpUnt7hFkikjIZXRxlWUjggg5BHUVaoNAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//9X9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD8VP+CyH/ACBPAH/XfUv/AEG2r8Kq/dX/AILIf8gTwB/131L/ANBtq/CqgzluFFFFAgooooA/ff8A4I8f8k48Zf8AYSt//RJr9ia/Hb/gjx/yTjxl/wBhK3/9Emv2JoNFsFFFFAwooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgD/gpB8D1+L37O17rumQeZq/hMtqdsQPmMCj/Sox7GIb8DktGor+X6v7e54IbmF7a5RZI5FKsrDIZSMEEHggjqK/j9/ad+E5+CPx48S/DeJClrY3bPZ55zazASwc9yI3UE+oNBEl1PBqKKKCQooooA/oe/4JZftHN49+Hk/wADPE0+/VPDEYksWY5aXT2YKF/7YOQnsjIB0NfrFX8cv7Pvxh1f4DfF/RPifpO5xp04+0xKf9dbSfJPH6ZZCdpPRsHtX9g+iazpniPRrTxDoky3Flfwx3EEqfdeKVQ6MPZlIIoLizTooooKCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP//W/fyiiigAooooAKKKKACiiigAooooAKKKKACi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FFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQB//0f38ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPxU/4LIf8AIE8Af9d9S/8AQbavwqr91f8Agsh/yBPAH/XfUv8A0G2r8KqDOW4UUUUCCiiigD99/wDgjx/yTjxl/wBhK3/9Emv2Jr8dv+CPH/JOPGX/AGErf/0Sa/Ymg0WwUUUUDCiiigDxv9oqwTVf2fvHOmv0n8P6kn0JtZMH8DzX8cdf2b/GWMS/CDxXEejaPfD87d6/jIoIkFFFFBIUUUUAf1jfsGWKad+yL4Ht06NZyS/jLPLIf1avrqvl79ipBH+yl4EVf+gVEfzJNfUNBqgooooAKKKKACiiigAooooA/KD/AIK86SLj4B+H9aAy1rr0cefRZracn9UWv53q/ps/4KkaV/aH7Jt9d4z9h1Gyn+mXMX/tSv5k6DOW4UUUUCCiiigD2b9nTxD/AMIp8fvBXiJm2paa5YPIf+mfnoHH4qSK/sar+Iizu57C8ivrY7ZIXWRD6MpyD+df216fexalYQajb/6u4jWRfo4BH86C4lyiiigoKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/0v38ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPxU/4LIf8AIE8Af9d9S/8AQbavwqr91f8Agsh/yBPAH/XfUv8A0G2r8KqDOW4UUUUCCiiigD99/wDgjx/yTjxl/wBhK3/9Emv2Jr8dv+CPH/JOPGX/AGErf/0Sa/Ymg0WwUUUUDCiiigDzr4wf8kl8U/8AYIvv/RD1/GJX9nfxg/5JL4p/7BF9/wCiHr+MSgiQUUUUEhRRRQB/XF+xd/yap4E/7BMP9a+nq+Yf2Lv+TVPAn/YJh/rX09QahRRRQAUUUUAFFFFABRRRQB8Q/wDBRuz+2fsbeMABlohYyD/gN9b5/TNfyu1/WR+3hbrc/sjeOI26CyR/++J42H8q/k3oIkFFFFBIUUUUAFf2ZfBLUm1j4M+EdXc5N1othMT6l7eNv61/GbX9gP7KV4b79mXwBO3UeH9Pj/7926J/SgqJ7/RRRQWFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQB//0/38ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPxU/4LIf8AIE8Af9d9S/8AQbavwqr91f8Agsh/yBPAH/XfUv8A0G2r8KqDOW4UUUUCCiiigD99/wDgjx/yTjxl/wBhK3/9Emv2Jr8dv+CPH/JOPGX/AGErf/0Sa/Ymg0WwUUUUDCiiigDzr4wf8kl8U/8AYIvv/RD1/GJX9nfxg/5JL4p/7BF9/wCiHr+MSgiQUUUUEhRRRQB/XF+xd/yap4E/7BMP9a+nq+Yf2Lv+TVPAn/YJh/rX09QahRRRQAUUUUAFFFFABRRRQB8s/ttx+b+yf46X00xz+TKf6V/JLX9cf7aLKv7Knjwt/wBAmYfniv5HKCJBRRRQSFFFFABX9dP7G0nm/sseA29NHth+S4/pX8i1f10/sbQ+R+yx4DQ99Ht2/wC+l3f1oKifS9FFFBYUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAH//1P38ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPxU/4LIf8AIE8Af9d9S/8AQbavwqr91f8Agsh/yBPAH/XfUv8A0G2r8KqDOW4UUUUCCiiigD99/wDgjx/yTjxl/wBhK3/9Emv2Jr8dv+CPH/JOPGX/AGErf/0Sa/Ymg0WwUUUUDCiiigDzr4wf8kl8U/8AYIvv/RD1/GJX9nfxg/5JL4p/7BF9/wCiHr+MSgiQUUUUEhRRRQB/XF+xd/yap4E/7BMP9a+nq+Yf2Lv+TVPAn/YJh/rX09QahRRRQAUUUUAFFFFABRRRQB8r/tuyeX+yd46b/qGMPzdRX8k9f1g/t8Xf2L9kLxvN0zaRR/8Afy4iT+tfyfUESCiiigkKKKKACv7Af2Urc2v7Mvw/iYYz4f05/wDvu3Rv61/H9X9nHwc0v+xPhF4V0XGPsej2MGPTy7dF/pQVE9IooooLCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//9X9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD8VP+CyH/ACBPAH/XfUv/AEG2r8Kq/dX/AILIf8gTwB/131L/ANBtq/CqgzluFFFFAgooooA/ff8A4I8f8k48Zf8AYSt//RJr9ia/Hb/gjx/yTjxl/wBhK3/9Emv2JoNFsFFFFAwooooA86+MH/JJfFP/AGCL7/0Q9fxiV/Z38YP+SS+Kf+wRff8Aoh6/jEoIkFFFFBIUUUUAf1xfsXf8mqeBP+wTD/Wvp6vmH9i7/k1TwJ/2CYf619PUGoUUUUAFFFFABRRRQAUUUUAfDP8AwUju/sv7G3i1AcGZrCMf+B1uT+gNfyy1/TD/AMFUNT+wfspT2mcfbdVs4frgvL/7Tr+Z6giW4UUUUEhRRRQBd0zT7nVtSt9KsxumuZEiQerOQo/U1/bTY2kVhZQ2MHCQosa/RRgfyr+P/wDZg8O/8JX+0Z4H0Fl3JNrdk0g9Y45lkk/8cU1/YVQXEKKKKCgooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/W/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA/FT/gsh/wAgTwB/131L/wBBtq/Cqv3V/wCCyH/IE8Af9d9S/wDQbavwqoM5bhRRRQIK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FABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQB/9H9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD8VP+CyH/ACBPAH/XfUv/AEG2r8Kq/dX/AILIf8gTwB/131L/ANBtq/CqgzluFFFFAgooooA/ff8A4I8f8k48Zf8AYSt//RJr9ia/Hb/gjx/yTjxl/wBhK3/9Emv2JoNFsFFFFAwooooA86+MH/JJfFP/AGCL7/0Q9fxiV/Z38YP+SS+Kf+wRff8Aoh6/jEoIkFFFFBIUUUUAf1xfsXf8mqeBP+wTD/Wvp6vmH9i7/k1TwJ/2CYf619PUGoUUUUAFFFFABRRRQAV+KP8AwWC+Jgh0nwn8HrOT5p5JNXukB5CxgwW/4MWm/FRX7XV/J1+3R8WY/jD+014j16xk8yw0+UaXZkHIMVplCyn+68u+QezUEy2PkSiiiggKKKKAPrL9in4Dt+0D8ftJ8LX8Rk0ewP8AaGpnHym2gIPln/rq5WP1wxI6V/WYqqihEAAAwAOgFfnr/wAE4/2cX+CHwWXxV4ih8vxB4sEd5cKww0NsATbQnuDtYu44IZ9p+6K/Qyg0igooooGFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAf/9L9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD8VP+CyH/ACBPAH/XfUv/AEG2r8Kq/dX/AILIf8gTwB/131L/ANBtq/CqgzluFFFFAgooooA/ff8A4I8f8k48Zf8AYSt//RJr9ia/Hb/gjx/yTjxl/wBhK3/9Emv2JoNFsFFFFAwooooA86+MH/JJfFP/AGCL7/0Q9fxiV/Z38YP+SS+Kf+wRff8Aoh6/jEoIkFFFFBIUUUUAf1xfsXf8mqeBP+wTD/Wvp6vmH9i7/k1TwJ/2CYf619PUGoUUUUAFFFFABRRRQB8zftf/ABqg+AvwA17xvHL5eoywmy00A4Y3lwCsZX18sZlI/uoa/kZJLEsxyTX6lf8ABUv4/wAPxG+LVv8ACXw7ceZpfhHetwVPyvqEn+tHHXyVAj9Q/mCvy0oM5MKKKKBBX37/AME+P2YZvj78XovEXiK33+F/DMiXN6XGUuJgcw23PDbiN0g6bAQcFlr43+HXw+8VfFXxtp3w+8E2xu9T1SYQwoOgzyzuf4URQWdjwFBPav64/wBn74JeGf2fPhXpvwz8MAOtqu+5uNu1rm5fBlmb/ePCgk7UCrnAFA4o9oooooNAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//T/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA/FT/gsh/wAgTwB/131L/wBBtq/Cqv3R/wCCyMgGk/D6Lu02pn8ltf8AGvwuoM5bhRRRQIKKKKAP33/4I8f8k48Zf9hK3/8ARJr9ia/HP/gjwwPw78Zp3Go25/OE/wCFfsZQaLYKKKKBhRRRQB518YP+SS+Kf+wRff8Aoh6/jEr+zv4wf8kl8U/9gi+/9EPX8YlBEgooooJCiiigD+uL9i7/AJNU8Cf9gmH+tfT1fMP7F3/JqngT/sEw/wBa+nqDUKKKKACiiigAr5L/AGzP2kdO/Zs+Dl54iglQ69qQa00iA4Ja4Ycyle6Qg727E7V4LCvorxx428L/AA48JX/jnxpdpY6XpkRmuJpOiqOgA6szEhVUZLMQACSK/k+/as/aN1/9pn4r3Xji/D2+mwZt9Ms2P+otlPGQMjzHPzyHnk4B2quATdj5yvLu61C7lv76Rpp53aSSRyWZ3Y5ZmJ5JJOSTVeiigzCpYIJ7qdLW1RpJZGCoiglmYnAAA5JJ6CowCTgck1+/v/BPP9hT/hBYLT47/GWyxrcqiXStPmXmzRhxPKp6TsPuKf8AVDk/OcIAlc9v/YA/Y9h/Z68Ff8Jx43t1PjHXIh5wYAmyt2wy2yn++ThpiP4gFGQuW/ROiig1CiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//9T9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD8N/+Cyd4jXfw809T8yJqsjD2c2gH/oJr8R6/XD/gr9r0V18ZvDHhtGy1loxnYen2i4kUD64iz9MV+R9BnLcKKKKBBRRRQB+8P/BHK6R/CnjqyB+aO7sXI9njmA/9BNfs/X4N/wDBHPXY7fxf458Mlvnu7OyugPa3klQn/wAjiv3koNI7BRRRQMKKKKAPOvjB/wAkl8U/9gi+/wDRD1/GJX9nfxg/5JL4p/7BF9/6Iev4xKCJBRRRQSFFFFAH9cX7F3/JqngT/sEw/wBa+nq+Yf2Lv+TVPAn/AGCYf619PUGoUUUUAFZWua5o/hnR7rxD4huorKxsommnnmYJHHGgyzMx4AArnPiL8SPBHwn8J3Xjf4hajFpmm2gy8sp+8ccIijLO7Y+VFBY9hX81f7Yv7c/jT9pfUZPC+giTR/B0EmYbLOJbkoflluipIJzysYJRDj7zDdQJuxq/t0/tq3/7SfiFfB/gwyWvg3S5S0CtlXvZhkfaJV7KBnykPIBJb5jhfz2oooMwqa2tri8uI7OzjaWWVgiIgLMzMcAADkkngAV2Xw7+G3jn4seKbfwX8PNMm1XUrk/LFCM7Vzgu7HCogzy7EKO5r+jr9jv9gTwZ+ztBB418Z+VrfjFlz5+MwWW4cpbBhkt2MpAYjhQoJBBpXPDv2EP+Ce8HgIWfxm+Otosuu/LNp2lyjK2XdZZ1PBn7qh4i6n95jZ+v9FFBolYKKKKACiiigAooooAKK+OfEn7f37I/hHxFf+FPEHi0QX+mXMtpcxCxv3CTQuY5F3JbsjYZSMqSD1BIr2n4P/Hf4VfHvRrrxB8JtU/tazspvs80nkTwbZdofbieOMn5SDkAjnrQFz12iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//1f38ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKK+L/2z/2tPDX7NHw8uIrK4jn8WanCyaZZAgshbK/aZV7RRnJGfvsNo/iKgH4O/wDBQL4hxfEX9q3xReWbh7XSpU0uEg5/49FEcvP/AF28w/SvjGpri4nu53urp2kllYu7sSWZmOSSTyST1NQ0GQUUUUAFFFFAH6D/APBMbx3H4M/at03TbhgkPiGzudMYnpuKi4j/ABZ4VUe5r+nmv4mvDXiLV/CPiKw8V+H5jb32mXEV1byjqksLB0b8GAr+vf8AZ6+OfhT9ob4Xaf8AEfwu6qZ0Ed5bbgXtblQPMicdeDypONyFW6GguL6Ht1FFFBQUUUUAedfGD/kkvin/ALBF9/6Iev4xK/s7+MH/ACSXxT/2CL7/ANEPX8YlBEgooooJCiiigD+uL9i7/k1TwJ/2CYf619PV8h/speKvDHg39j/wPrvi7UbbS7KLSYd9xdypDEvXq7kKPzrxP4v/APBUb9nj4fxTWXgVrjxdqKZCraKYbUMOzXEoHHvGkgoNLn6UV+fv7SP/AAUS+C3wMS48P+G5l8U+I4wVFpZuDBC44/0i4GVXB6om58jBC9a/Fn47ft+ftDfHNJ9IutSGg6LOCh0/TN0Kuh42yy5MsmR94Fgh/ujpXxPQS5dj2z44/tCfFP8AaG8UHxR8S9Ra42Fvs1rHlLa2Vv4YYskL2yxy7YG5jXidFfXfwC/Yi+Pf7QbQ6j4d0z+zNFkwTqmobobcr6xDBeb28tSueCy0E7nyJX6Efsz/APBOz4w/HU2/iXxUjeF/DUmH+03SH7ROh5/0eA4JBHSR9qYOV39K/Xr9nX/gnX8D/gXNB4i1qM+KfEEWGF3fIvkxOO8FtyqkHkM5dweVYdK+/qClHueM/BP4BfC79n3wsPCvwz01bRGwbi4fD3Ny4/jmlwCx64Awq5IVQOK9moooLCiiigAooooAKKKKACiiuB+K/iEeEvhd4k8VFtn9maVeXe708mB3z+lAH8dPj3W/+Em8da14j3bv7Qv7m5z6+bKz5/Wv6DP+CSOmCz/Zs1W/YfNd6/csD/spb2yAfmDX849f00f8EtLQW/7J1nN/z31O9k/Jwn/stBEdz9GKKKKCwooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//1v38ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACvF/iV+0V8Efg9qcei/EvxLZ6ReSwi4SCZj5rRMzKHCKC2CysAcdQa9or+cn/grl/ycrpH/YuWv/pXd0CbsfqdrP8AwUi/Y80gER+KXvHH8FvZXbf+PNCqf+PV4h4u/wCCuHwD0mIp4S0bWNYm7b0itoj/AMDaR3H/AH7r+datS30TWrwZtLOeUf7EbN/IUE8zP1H+Jn/BWv42eJ7abT/hzo9h4ZjlBCzsTe3Ke6tIEhz9YWr8xvFni7xR478QXPirxlfz6nqV226a5uXMkjkDAyzdgAAB0AAAwKlj8E+M5v8AVaRet9LeQ/8AstXo/ht8RZf9VoGpN9LWY/8AstBOrOKorvl+FPxRf7nhvVT9LOf/AOIqwvwe+Lb/AHPC2rn6WNx/8RQB5zRXpy/BP4yv9zwjrR+lhcf/ABuiT4JfGaEbpvCOtIPewuB/7ToA8xorvZfhX8T4P9f4b1RP96znH80rKm8EeNLf/j40i9j/AN63kH81oA5evdfgF+0Z8T/2b/Fp8V/Di7VBOFS7s5wXtrqNTkLKgIORztZSrrk4IBIPj0uia1B/r7OdP96Nh/MVnPG8bbZFKn0IxQB/Rj8Kv+Cr/wABvFVtHbfE20vPC17tHmP5bXlqT32vCDL17GLgdzX2F4b/AGuv2YvFkayaP470UF+iXF1HbOf+ATmNs+2K/kJooK5j+020+I/w81BQ9hr2nTq3IMd1CwP0wxrRk8X+Eohul1S0Ue88Y/8AZq/ihooDmP7Dfi/8QPAZ+FXia3Gt2BkfSb1VX7TFkkwOAAN3JJr+PKiigTdwooooEFFFFAGlf6zrGqQwW+p3c1zHaoIoVlkZxGg6KgYkKo9BgVm1+zX7Nn/BL3wV8VPhloXxR8b+Kb1YtbtkuvsdjBHE0Yb+HzpDKGPv5Y+lfo38PP2Af2Uvhz5c1n4Wh1W5TH7/AFVmvCxHcxyfuR+EYoHys/mH8BfCz4kfFHUf7J+HWh3utTggMLSF5Ame7sBtQe7ECv0a+FP/AASb+NvioxX3xQ1Gz8L2rYLQqReXePTbGRCM+vmnHpX9DWmaVpeiWMemaNbRWltEMJFCixoo9AqgAfgKv0Fcp8VfBj9gH9mz4MeVf2ujDXtUjwfturbbhgw7pEQIUwehCbh/eNfaiqqqFUYA4AFLRQUFFFFABRRRQAUUUUAFFFFABRRRQAV8fft8eKR4S/ZI8Z3wba91apYqO7fa5o4GA/4C7E+wNfYNfk9/wV08ZrpHwO0LwVE22XWdWErD+9DaRMWH/fckZoE9j+eCv6hf+CZcHlfsf6BJ/wA9bm/b/wAmpF/pX8vVf1Kf8E1lx+xv4VPrJqB/8np6CY7n3ZRRRQWFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAH//X/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAK5LW/AHgTxLqC6v4j0Sw1C7RBGs1zbRSyBASQod1LBQSSBnGSfWutooAxdL8N+HdEwNFsLazx/zwiSP/wBBAraoooAKKKKACiiigAooooAKKKKACmuiSKUkAZT1B5FOooAxJ/DXhy5O650+2kJ7tEh/mKzpPAXgab/XaLYP9baI/wDstdZRQBwknwt+GU3+u8OaW/1s4T/7JVCT4MfB6b/XeE9Gf62Fuf8A2SvSqKAPnH4qfBr4Qaf8LfEt3YeFNHgli0q8dHjsbdWVhA5BBCAgg8giv5Da/s6+MTBPhH4pZug0i+P/AJLvX8YtBEgooooJCiiigD+uL9i7/k1TwJ/2CYf619PV8wfsWMG/ZT8CEf8AQJhH5Zr6foNQooooAKKKKACiiigAooooAKKKKACiiigAooooAK/na/4K3fEBfEHxz0bwBbPui8PaaHkH924vW3uP+/SQn8a/ofuLiC0t3u7p1jiiUu7scKqqMkknoAOtfxy/tAfEt/jD8avE3xKJYxatfyyQbuot1OyBT7rEqD8KCZHj9f1Lf8E2GDfsbeFAP4X1Af8Ak9cGv5aa/qK/4Jnyb/2PPDi/3J78f+Tcp/rQKO597UUUUFhRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQB/9D9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigDyX4+3SWPwJ8a3shwsOg6k5PoFtZDX8bNf1xftpa7F4c/ZU8d6hM20SaTNa597rFuB+JkAr+R2giQUUUUEhRRRQB/Wf8AsMXKXf7JXgaVDkDT9n4pK6n9RX1jXwb/AME09di1j9j7w5aq259OmvrWT2P2qWVR+CSLX3lQaIKKKKBhRRRQAUUUUAFFFFABRRRQAUUUUAFFFY/iHxBovhPQbzxP4juUs7DT4XuLieQ4WOONSzMfYAUAfCX/AAUi+PC/B79n658N6VNs1nxdv063APzLblf9KlHsIyI8jkNIp7V/MJX0/wDtbftH6x+0z8XLrxnPvg0m1BtdKtW/5ZWykkMwHHmSH5368kKCQor5goM27hX9OH/BLu7+0/sladDn/j31C+j/ADl3/wDs1fzH1/SV/wAEnLwXP7L9zCDn7Prt3H9MxQP/AOzUDjufptRRRQWFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAH//R/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooryH4y/HX4Y/AXwrL4t+JWpx2cSKTDbghrm5YdEgiyGdif+AjqxVQSAD4Q/4Kx/Ey38M/AOx+HMEwF34mv498WeTa2f752/CbyR+PtX85lfRP7UH7RPiX9pj4p3Pj/W0NraIv2fT7PduFtbKSVXPG52JLO3djxhQAPnagzbuFFFFAgooooA/eT/AII//Eq1uvCfir4RXUwFxZ3KarbRk/M0UyrDMV9kaOPPvIPU1+zlfxtfA34y+LPgH8TNO+Jvg5gbixfEsLHEdxA/EkL/AOy69+qnDDkCv6kP2ff2sPg5+0do0Nz4K1JIdV8vdcaVcMEu4SPvfIT+8Qf30yuMZwcgBcX0PpWiiigoKKKKACiiigAooooAKKKKACivOPHXxg+FfwxhM/xC8Rado2BkJd3Eccjf7sZO9j7KCa/O34z/APBV74OeEI5dN+ENlP4qvgCFuHDWtmp9cuvmvg9hGoPZ+9Arn6ceKvFnhnwPoFz4p8YX8Gm6dZrvmuLhxHGg9ye5PAHUngZNfzf/ALcv7dOrftC6pL8Pfh5JLZ+C7ST3STUJEPEso6iIHmOM+zv82AnzD8ev2nPi/wDtHa2uqfEjUd9tCxa20+3BjtLfPHyR5OW9Xcs5HG7GBXz9QS5BRRRQSFf0Kf8ABIDUfN+CPibSM/6jXDNj/rrbQr/7Tr+euv3W/wCCOGpiTQvH2jZ5hn06bH/XVbhf/adA47n7VUUUUGgUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAf//S/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPy7/bJ/wCCgPin9mX4pRfDfQPDtrqYksIb37RcTOuDK8i7diDoNmc7u9fC+t/8Fc/2hb5THoui6FYg/wARhuJXH0LThfzU19qftn/sCfEP9pj4wQ/ETwzrenadaR6dBZmO6Exk3xPIxb5EYYIcY5zXyzF/wR6+KLf6/wAX6Uv+7FO38wKCXc+UPGX/AAUJ/a38aI9vP4sk06BwR5enQw2pGfSRE83/AMf4r5C1vX9d8TajJrHiS9n1C7l+/PcyNLI31dyWP4mv19i/4I7eOj/r/G1gv+7aSn+bitKL/gjj4kP+u8e2y/7unuf/AGuKCbM/Fqiv20j/AOCNl+f9d8Q41+mlk/8At2Kuj/gjSM8/Ef8A8o//AN20BZn4fUV+5C/8Ea7X+P4iOfppQH/t3U6/8EbdLH3/AIgyn6aYo/8AbqgLM/DCiv3WX/gjfoX8Xj+c/TTlH/txUw/4I4+Gv4vHlyf+3BP/AI/QHKz8I6lgnntpluLZ2jkQ7lZSQQR0II5Br92x/wAEcvCvfx3d/wDgCn/x6pB/wRz8Id/HN5/4BR//AB2gOVn5PeF/2sP2lfBsaQeH/HGsRxRcJFLdSTxqB2CTF1A9gMV7Hpn/AAUh/bG07Cv4rW5UdBNY2R/UQhvzNfoEP+COngv+Lxxe/wDgHH/8cp4/4I6+Bu/ja+/8BIv/AIugdmfEcH/BUT9rWEYk1LT5f96xiH/oOKs/8PS/2sf+fvTP/AJP/iq+1x/wR28A/wAXjXUP/AWL/wCKqQf8Ed/h738Z6j/4DQ//ABVAWZ8Sf8PS/wBrH/n70z/wCT/4qj/h6X+1j/z96Z/4BJ/8VX2+P+CPHw47+MtS/wDAeH/GmH/gjx8O/wCHxnqP/gPD/jQGp8R/8PS/2sf+fzTP/AJP/iqyrr/gp1+15Pnytas4P9yxtz/6EjV92H/gjt4B/h8a6gP+3WL/AOKqM/8ABHXwP/D42vv/AAEi/wDi6Asz869U/wCCiX7YurRGCbxi8KHtBZ2UR/BkgDfrXi3iL9pb9oXxZuXxB421u4RusZvp1j/79q4T9K/Xg/8ABHTwb/D44vf/AACj/wDjlRn/AII5+E/4fHV2P+3GP/47QFmfhDNNNcStPcOZHclmZjkknqST1NR1+7p/4I4+Gf4fHl0P+3BP/j9QP/wRv0M/c8fzj66cp/8AbgUC5WfhTRX7mv8A8EbdOP3PiFIPrpYP/t0KrP8A8Eaoj/q/iMR9dIz/AO3goCzPw7or9tpv+CNl6v8Ax7/ERG/3tKK/yuzWXP8A8EcvFC/8e3ju1f8A3rB1/lMaAsz8Xa/Yr/gjxq/k/EbxloOf+PnTbe4x/wBcJiv/ALVon/4I8fEdf+Pbxlpr/wC9bzL/ACLV9WfsU/sIfEb9l34s3vjvxDren6lZXmly2BithKJAzzQyq2HQLgeUR1zzQNJ3P1KooooLCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//0/38ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/1P38ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/1f38ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKoajqmmaPbG81a5itYR1eZ1RR+LECgC/RXmw+MvwgM/2YeK9HMn9z7db7vy8zNd1puq6XrNqL7R7mK7gbpJC6yIfoykigC/RRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAf//W/fyiiigAooooAKKKKACiiigAooooAKKK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58PN0iLpl15llNkhmt3xJbyBh/FsK5I6MCO1f2F1+Q3/AAVJ/Zn8TfEmw0H4sfDbSLrV9XsSdOvbexgeeeS2fdJFJsjVmIifcCcH/WDsKCZI+7/2UfjRD8fPgRoPxCdw19JD9m1BR/DeQfJLx23keYo/usK+iq/En/gl3bfHH4VeMNZ+GXxC8I67pWia1F9sguLzT7mCCG7gGGDPJGqL5sXGSeTGoHJr9tqBoKKKKBn8t3/BRP4If8Kb/aL1C+0yHy9I8Tg6paYGFV5GP2iMdvllywA6K6ivo34Z/HfXf2mP2fPA37GenzSjWtQ1Madq065ymh2AWcSbumSmIxzz5JB+8M/oP/wUY+AF/wDHD4EPf+FrKS98QeG5vttnFAhkmmjbCXEKKoLMWXDhQCWaNQOtfPH/AAS2/Zk8UfDuPXvi58S9HutI1S5xptjb38DwTJANsk0vlyKrASNsVTgfcbsaCLan66aTpWnaFpVroekRLb2lnEkEEScKkcahUUewUACtCiigs+Jv2/8A4H/8Ls/Zz1WDTYfM1fQP+JrY4GWYwKfNjHc+ZEWAHdwvpX4FfsU/HVP2f/2gNI8WapMYdHvSdP1M87RbTkDzCB2icJIcAnCkDrX9ZpAIweRX80Hxr/YN+KMH7VFz4C8BaBfv4Y1jUY5LbUobWV7O1trpgziSZV8tRb5ZSC2SFH94UEyXU/Wv9i7Tr74i6p4u/az8RxMlz43vWg0pJB80OkWRMUCgdjIVy3ZtobvX3rXP+E/DGjeCfC+neD/DsQgsNLtorW3jH8McKhFH1wOT3NdBQUgooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA/9L9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/9P9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/9T9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoorzf4s/FjwR8E/Al78RfiBdfZdOsgM7RukkduEijX+J3PAHTuSACQAekUV8H+GfjD+2X8YNJj8X/DHwVofhzRbtRJZt4mu7g3NxE3KSeTaITGGHIDduQSME52gftfePvAHxe0z4K/tT+Grbw9d68Qul6tp07TafcOW2BCHG9MsQuScgsu5VUhqBXP0BorG8QN4gTRrhvCqW8moB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AKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//Q/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//R/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//S/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//T/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//U/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//V/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//W/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//X/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//Q/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//R/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//S/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//T/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//U/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//V/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//W/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//X/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//Q/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//R/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//S/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//T/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//U/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//V/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//W/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//X/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//Q/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//R/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//S/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//T/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//U/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//V/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//W/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//X/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//Q/fyiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//Z" alt="DL">
+    <div class="sb-name">Digital Law<br>& Policy Centre</div>
+  </div>
+  <div class="sb-lbl">Navigate</div>
+  <nav class="sb-nav">
+    <button class="sb-a" id="sl-about"         onclick="goTo('about')">        <span class="sb-ic">⚖</span>About</button>
+    <button class="sb-a" id="sl-practice"      onclick="goTo('practice')">     <span class="sb-ic">📋</span>Practice Areas</button>
+    <button class="sb-a" id="sl-digital-lawyer" onclick="goTo('digital-lawyer')"><span class="sb-ic">▶</span>The Digital Lawyer</button>
+    <button class="sb-a" id="sl-advocacy"      onclick="goTo('advocacy')">     <span class="sb-ic">🎓</span>Bar Prep</button>
+    <div class="sb-div"></div>
+    <button class="sb-a" id="sl-team"    onclick="goTo('team')">    <span class="sb-ic">👤</span>Our Team</button>
+    <button class="sb-a" id="sl-contact" onclick="goTo('contact')"> <span class="sb-ic">✉</span>Contact Us</button>
+  </nav>
+  <div class="sb-foot">Incorporated in Nepal<br>Companies Act, 2063 · Est. 2022</div>
+</aside>
+
+<!-- TOP BAR -->
+<nav id="tb">
+  <button class="hbg" onclick="toggleSB()">☰</button>
+  <span class="tb-lbl">Resources</span>
+  <div class="tb-links">
+    <button class="tb-btn" id="tb-dw"  onclick="showPg('dw')">Digital Watch</button>
+    <button class="tb-btn" id="tb-law" onclick="showPg('law')">Law Index</button>
+    <button class="tb-btn" id="tb-tr"  onclick="showPg('tr')">Treaty Map</button>
+  </div>
+  <button class="tb-cta" onclick="goTo('contact')">Consult Us</button>
+</nav>
+
+<div id="app">
+
+<!-- ════════════════════════════════════════
+     MAIN PAGE
+════════════════════════════════════════ -->
+<div id="pg-main" class="pg on">
+
+  <!-- HERO -->
+  <section id="home" style="scroll-margin-top:var(--th)">
+    <div class="hero">
+      <div class="hero-l">
+        <div class="h-tag">Incorporated in Nepal · Est. 2022</div>
+        <h1 class="h-ttl">Law. Policy.<br><em>Digital Rights.</em></h1>
+        <p class="h-p">A Kathmandu-based legal firm and think tank advancing digital governance, rights-based advocacy, and access to justice across Nepal and South Asia.</p>
+        <div class="h-acts">
+          <button class="btn-n" onclick="goTo('practice')">Our Services</button>
+          <button class="btn-g" onclick="goTo('contact')">Get Legal Advice</button>
+        </div>
+      </div>
+      <div class="hero-r">
+        <blockquote class="h-q">"The rule of law in the digital age must be built by those who understand both."</blockquote>
+        <div class="h-st"><span class="h-sn">2022</span><span class="h-sl">Year of Incorporation</span></div>
+        <div class="h-st"><span class="h-sn">5</span><span class="h-sl">Practice Areas</span></div>
+        <div class="h-st"><span class="h-sn">100K+</span><span class="h-sl">Cumulative Social Media Reach</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about" style="scroll-margin-top:var(--th)">
+    <div class="si">
+      <span class="ey rv">Who We Are</span>
+      <h2 class="ht rv">A Legal Think Tank<br>for the Digital Era</h2>
+      <div class="ru rv"></div>
+      <div class="ab-g">
+        <div class="rv">
+          <div class="ab-bd">
+            <p>Digital Law and Policy Centre Pvt. Ltd. is a Kathmandu-based legal services and research organisation incorporated under the laws of Nepal. We sit at the intersection of traditional legal practice and emerging digital governance — bringing rigour to questions of law, rights, and public policy.</p>
+            <p>We work with individuals, civil society organisations, and government bodies to advance legal literacy, provide expert counsel, and conduct research that shapes policy across Nepal and South Asia.</p>
+            <p>Our work spans court representation, legal documentation, investor facilitation, public interest advocacy, and the growing field of digital rights — grounded in Nepal's domestic legal framework and international human rights standards.</p>
+          </div>
+        </div>
+        <div class="rv d2">
+          <div class="pils">
+            <div class="pil"><div class="pil-n">01 — Represent</div><div class="pil-t">Litigation & Advocacy</div><div class="pil-d">Court representation across Nepal — pleadings, arguments, writ petitions, and written replies in civil and public interest matters.</div></div>
+            <div class="pil"><div class="pil-n">02 — Research</div><div class="pil-t">Legal Research & Policy</div><div class="pil-d">Policy-grade research on digital governance, data protection, and law — for institutional and public benefit.</div></div>
+            <div class="pil"><div class="pil-n">03 — Educate</div><div class="pil-t">Digital Legal Literacy</div><div class="pil-d">Making law accessible through public digital platforms, preparation programmes, and multilingual awareness initiatives.</div></div>
+            <div class="pil"><div class="pil-n">04 — Advise</div><div class="pil-t">Advisory & Facilitation</div><div class="pil-d">Advisory for investors on regulatory compliance, documentation, and government liaison in Nepal.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRACTICE -->
+  <section class="prac" id="practice" style="scroll-margin-top:var(--th)">
+    <div class="si">
+      <span class="ey rv">What We Do</span>
+      <h2 class="ht rv">Practice Areas</h2>
+      <div class="ru rv"></div>
+      <div class="pr-g">
+        <div class="pr-c rv">   <span class="pr-ic">⚖️</span><div class="pr-t">Litigation & Court Representation</div><div class="pr-d">Representing parties before district, high, and Supreme Courts. Drafting arguments, petitions, and written replies in civil and public interest matters.</div><span class="pr-tg">Advocacy</span></div>
+        <div class="pr-c rv d1"><span class="pr-ic">💻</span><div class="pr-t">Digital Rights & Cyber Law</div><div class="pr-d">Counsel on data protection, platform governance, freedom of expression, and Nepal's evolving digital regulatory landscape.</div><span class="pr-tg">Digital Law</span></div>
+        <div class="pr-c rv d2"><span class="pr-ic">🔬</span><div class="pr-t">Legal Research & Policy Analysis</div><div class="pr-d">Independent research spanning constitutional law, human rights, social sciences, and international frameworks.</div><span class="pr-tg">Research</span></div>
+        <div class="pr-c rv d1"><span class="pr-ic">📋</span><div class="pr-t">Legal Documentation & Advisory</div><div class="pr-d">Drafting firaad patra, pratuttar patra, rit nibedans, and written replies. Structured legal advice across mandates.</div><span class="pr-tg">Advisory</span></div>
+        <div class="pr-c rv d2"><span class="pr-ic">💼</span><div class="pr-t">Investment Facilitation</div><div class="pr-d">Assisting investors with document preparation, regulatory liaison, and government approvals within Nepal's legal framework.</div><span class="pr-tg">Investment Law</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE DIGITAL LAWYER -->
+  <section class="dl" id="digital-lawyer" style="scroll-margin-top:var(--th)">
+    <div class="si">
+      <span class="ey rv">Digital Legal Literacy</span>
+      <h2 class="ht rv">The Digital Lawyer</h2>
+      <div class="ru rv"></div>
+      <p class="dl-intro rv">Making Nepali law accessible to everyone — through TikTok explainers and YouTube deep-dives on constitutional rights, court processes, digital law, and public policy.</p>
+      <div class="dl-cards rv">
+        <a class="yt-card" href="https://www.youtube.com/@Lawwithmamta" target="_blank">
+          <div class="card-in">
+            <div class="yt-lbl">▶ YouTube Channel</div>
+            <div class="dc-ttl">Law With Mamta</div>
+            <div class="dc-dsc">In-depth explainers on Nepali law, court procedures, digital rights, and policy — for citizens, students, and practitioners.</div>
+            <div class="yt-play">
+              <div class="yt-btn"><div class="yt-tri"></div></div>
+              <div><div class="yt-cta">Watch on YouTube</div><div class="yt-ch">@Lawwithmamta · 4.5K subscribers</div></div>
+            </div>
+          </div>
+        </a>
+        <a class="tt-card" href="https://www.tiktok.com/@lawwithmamta" target="_blank">
+          <div class="card-in">
+            <div class="tt-lbl"><span class="cy">@lawwithmamta</span> <span class="rd">· TikTok</span></div>
+            <div class="dc-ttl">Short-form legal awareness for Nepal's digital generation</div>
+            <div class="dc-dsc">Rights explainers, policy commentary, and real answers to real legal questions — in under a minute.</div>
+            <div class="tt-stat"><div class="tt-num">100K+</div><div class="tt-nl">Followers</div></div>
+            <span class="tt-fol">♪ Follow on TikTok →</span>
+          </div>
+        </a>
+      </div>
+      <div class="dl-types rv">
+        <div class="dl-tp"><div class="dl-tn">01</div><div class="dl-tt">Rights Explainers</div><div class="dl-td">Plain-language breakdowns of constitutional and statutory rights every Nepali should know.</div></div>
+        <div class="dl-tp"><div class="dl-tn">02</div><div class="dl-tt">Policy Analysis</div><div class="dl-td">Expert commentary on Nepal's digital governance, new legislation, and human rights developments.</div></div>
+        <div class="dl-tp"><div class="dl-tn">03</div><div class="dl-tt">Legal Q&A</div><div class="dl-td">Community-driven answers to real questions from citizens navigating Nepal's legal system.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BAR PREP -->
+  <section class="bp" id="advocacy" style="scroll-margin-top:var(--th)">
+    <div class="si">
+      <span class="ey rv">Training Programme</span>
+      <h2 class="ht rv">Bar Preparation Classes</h2>
+      <div class="ru rv"></div>
+      <div class="bp-g">
+        <div class="rv">
+          <div class="bp-bdg">
+            <div class="bp-yr">Bar</div>
+            <div class="bp-lb">Exam Preparation</div>
+            <div class="bp-dv"></div>
+            <div class="bp-nt">Previously offered. Enquire for future cohorts.</div>
+          </div>
+        </div>
+        <div class="rv d2">
+          <div class="bp-bd">We previously conducted structured advocate preparation classes helping law graduates navigate Nepal's bar examination — rigorous substantive law revision with practical advocacy, drafting, and procedural law. We remain open to future cohorts based on demand.</div>
+          <div class="bp-fs">
+            <div class="bp-f"><div class="bp-fi">📚</div><div class="bp-ft">Substantive Law Review</div><div class="bp-fd">Civil, criminal, constitutional & procedural modules</div></div>
+            <div class="bp-f"><div class="bp-fi">✍️</div><div class="bp-ft">Legal Drafting</div><div class="bp-fd">Pleadings, briefs, petitions & memoranda</div></div>
+            <div class="bp-f"><div class="bp-fi">🗣️</div><div class="bp-ft">Mock Advocacy</div><div class="bp-fd">Oral argument and cross-examination</div></div>
+            <div class="bp-f"><div class="bp-fi">📝</div><div class="bp-ft">Past Paper Analysis</div><div class="bp-fd">Nepal Bar Council examination review</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team" id="team" style="scroll-margin-top:var(--th)">
+    <div class="si">
+      <span class="ey rv">Leadership</span>
+      <h2 class="ht rv">Our Team</h2>
+      <div class="ru rv"></div>
+      <div class="fc rv">
+        <div class="fc-l">
+          <div class="fc-mn">MS</div>
+          <div class="fc-nm">Mamta Siwakoti</div>
+          <div class="fc-rl">Founder & Advisor</div>
+        </div>
+        <div class="fc-r">
+          <div class="fc-bi">Mamta Siwakoti is a qualified advocate, privacy law practitioner, TEDx speaker, and published author. She holds a BALLB from Kathmandu School of Law and a Masters in International Relations and Diplomacy from Tribhuvan University. Her practice spans digital rights, data protection, corporate compliance, and policy advocacy across South Asia. She holds the CIPP/E certification and has engaged in parliamentary advocacy, municipality law drafting, and UPR submissions. She is the founder of The Digital Lawyer, a digital legal literacy initiative reaching over 100,000 followers cumulatively across social media platforms.</div>
+          <div class="cds">
+            <span class="cd">BALLB — Kathmandu School of Law</span>
+            <span class="cd">MA International Relations & Diplomacy — Tribhuvan University</span>
+            <span class="cd">CIPP/E</span>
+            <span class="cd">TEDx Speaker</span>
+            <span class="cd">Qualified Advocate</span>
+            <span class="cd">Published Author</span>
+            <span class="cd">Privacy Law</span>
+            <span class="cd">Digital Rights</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact" style="scroll-margin-top:var(--th)">
+    <div class="si">
+      <span class="ey rv">Get In Touch</span>
+      <h2 class="ht rv">Contact Us</h2>
+      <div class="ru rv"></div>
+      <div class="co-g">
+        <div class="rv">
+          <div class="co-ttl">Based in Kathmandu, serving clients across Nepal and internationally.</div>
+          <div class="co-dsc">Whether you need legal representation, policy research, or wish to enquire about our digital literacy work — we'd be glad to hear from you.</div>
+        </div>
+        <div class="rv d2">
+          <form class="cf" id="cform" onsubmit="sendMsg(event)">
+            <div class="f2">
+              <div class="ff"><label class="fl">First Name</label><input id="fn" type="text" class="fi" placeholder="Aarav" required></div>
+              <div class="ff"><label class="fl">Last Name</label><input id="ln" type="text" class="fi" placeholder="Sharma" required></div>
+            </div>
+            <div class="ff"><label class="fl">Email Address</label><input id="em" type="email" class="fi" placeholder="you@example.com" required></div>
+            <div class="ff">
+              <label class="fl">Nature of Enquiry</label>
+              <select id="eq" class="fi" required>
+                <option value="">Select an area...</option>
+                <option>Legal Representation</option>
+                <option>Digital Rights Advisory</option>
+                <option>Policy Research</option>
+                <option>Bar Preparation</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="ff"><label class="fl">Your Message</label><textarea id="mg" class="fi" placeholder="Describe your legal matter or enquiry..." required></textarea></div>
+            <button type="submit" class="fs" id="fsb">Send Enquiry →</button>
+            <div id="fst"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="ft-in">
+      <div><div class="ft-nm">Digital Law and Policy Centre Pvt. Ltd.</div><div class="ft-sb">Incorporated in Nepal · 2022</div></div>
+      <div class="ft-cp">© 2025 Digital Law and Policy Centre Pvt. Ltd.</div>
+    </div>
+  </footer>
+
+</div><!-- /pg-main -->
+
+<!-- ════════════════════════════════════════
+     DIGITAL WATCH
+════════════════════════════════════════ -->
+<div id="pg-dw" class="pg">
+  <div class="rh">
+    <p class="rh-ey">Regulatory Intelligence · Updated 2025</p>
+    <h1>Nepal <em>Digital Watch</em></h1>
+    <p class="rh-dsc">A living monitor of Nepal's digital governance laws. Flip any card to understand your rights under that law in plain language.</p>
+    <div class="rh-mt">
+      <div class="rh-mi">Sources <span>Nepal Law Commission · MoCIT · Parliament of Nepal</span></div>
+      <div class="rh-mi">Updated <span>May 2025</span></div>
+    </div>
+  </div>
+  <div class="rtabs">
+    <button class="rt on" onclick="switchTab(this,'dw-laws')">Digital Laws & Your Rights</button>
+    <button class="rt"    onclick="switchTab(this,'dw-pending')">Pending Legislation</button>
+    <button class="rt"    onclick="switchTab(this,'dw-gaps')">Policy Gaps</button>
+  </div>
+
+  <!-- TAB: Laws & Rights -->
+  <div id="dw-laws" class="rp on">
+    <div class="rm">
+      <div class="rsh"><h2>Digital Laws in Force — Know Your Rights</h2><p>Click <strong>Know Your Rights</strong> on any card to flip it and see what that law means for you as a citizen in Nepal.</p></div>
+      <div class="fgrid">
+
+        <div class="fw" id="c1"><div class="fi2">
+          <div class="ff2 ffr"><div class="ffr-body">
+            <div class="ffr-top"><div class="fcat">Digital / Cyber</div><span class="bx b-ok">● In Force</span></div>
+            <div class="fttl">Electronic Transactions Act, 2063</div>
+            <div class="fyr">Enacted 2008 · Nepal Law Commission</div>
+            <div class="fdsc">Nepal's foundational digital law. Covers electronic records, digital signatures, and cybercrime — hacking, phishing, and unauthorised access. The legal backbone for all cyber complaints in Nepal.</div>
+          </div><div class="ffr-foot"><button class="fbtn" onclick="fc('c1')"><span class="fbtn-ic">↻</span>Know Your Rights</button></div></div>
+          <div class="ff2 fbk">
+            <div class="fbk-head"><div class="fbk-ttl">Your Rights — Electronic Transactions Act</div><div class="fbk-act">ETA, 2063 (2008)</div></div>
+            <ul class="frts">
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Digital signatures are legally valid — same as handwritten</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Online contracts are enforceable in court</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Hacking your accounts is a criminal offence — report to Nepal Police Cyber Bureau</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Sharing your private images without consent is punishable</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Online impersonation and cyberstalking are covered offences</span></li>
+            </ul>
+            <div class="fbk-foot"><button class="fbk-btn" onclick="fc('c1')">↩ Flip Back</button></div>
+          </div>
+        </div></div>
+
+        <div class="fw" id="c2"><div class="fi2">
+          <div class="ff2 ffr"><div class="ffr-body">
+            <div class="ffr-top"><div class="fcat">Privacy</div><span class="bx b-ok">● In Force</span></div>
+            <div class="fttl">Individual Privacy Act, 2075</div>
+            <div class="fyr">Enacted 2018 · वैयक्तिक गोपनियता सम्बन्धी ऐन</div>
+            <div class="fdsc">Nepal's primary privacy law. Protects your personal data, digital communications, and requires consent before anyone can collect or use your information.</div>
+          </div><div class="ffr-foot"><button class="fbtn" onclick="fc('c2')"><span class="fbtn-ic">↻</span>Know Your Rights</button></div></div>
+          <div class="ff2 fbk">
+            <div class="fbk-head"><div class="fbk-ttl">Your Rights — Privacy Act</div><div class="fbk-act">Individual Privacy Act, 2075 (2018)</div></div>
+            <ul class="frts">
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">No one can collect or use your data without your consent</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Request access to any data held about you</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Demand correction or deletion of wrong information</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Your messages and location cannot be monitored without consent</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Data collected about you cannot be sold or repurposed</span></li>
+            </ul>
+            <div class="fbk-foot"><button class="fbk-btn" onclick="fc('c2')">↩ Flip Back</button></div>
+          </div>
+        </div></div>
+
+        <div class="fw" id="c3"><div class="fi2">
+          <div class="ff2 ffr"><div class="ffr-body">
+            <div class="ffr-top"><div class="fcat">Platform Regulation</div><span class="bx b-ok">● In Force</span></div>
+            <div class="fttl">Social Media Directive, 2080</div>
+            <div class="fyr">Enacted Nov 2023 · MoCIT · Enforced Sept 2025</div>
+            <div class="fdsc">Requires all social media platforms to register with MoCIT and appoint local grievance officers. 26 platforms including Facebook, Instagram, and YouTube were blocked in September 2025 for non-compliance.</div>
+          </div><div class="ffr-foot"><button class="fbtn" onclick="fc('c3')"><span class="fbtn-ic">↻</span>Know Your Rights</button></div></div>
+          <div class="ff2 fbk">
+            <div class="fbk-head"><div class="fbk-ttl">Your Rights — Social Media Directive</div><div class="fbk-act">DMSM, 2080 (2023)</div></div>
+            <ul class="frts">
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Platforms must have a local grievance officer you can contact</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">File complaints about harmful content or account issues</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Children are specifically protected from harmful content</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Cyberbullying and impersonation are prohibited</span></li>
+              <li class="fri"><span class="fri-ck">⚠</span><span class="fri-tx">Content removal has no judicial oversight — a free speech concern</span></li>
+            </ul>
+            <div class="fbk-foot"><button class="fbk-btn" onclick="fc('c3')">↩ Flip Back</button></div>
+          </div>
+        </div></div>
+
+        <div class="fw" id="c4"><div class="fi2">
+          <div class="ff2 ffr"><div class="ffr-body">
+            <div class="ffr-top"><div class="fcat">Access to Information</div><span class="bx b-ok">● In Force</span></div>
+            <div class="fttl">Right to Information Act, 2064</div>
+            <div class="fyr">Enacted 2007 · सूचनाको हक सम्बन्धी ऐन</div>
+            <div class="fdsc">Guarantees every citizen the right to request and receive information held by public bodies. Establishes Nepal's National Information Commission to hear appeals.</div>
+          </div><div class="ffr-foot"><button class="fbtn" onclick="fc('c4')"><span class="fbtn-ic">↻</span>Know Your Rights</button></div></div>
+          <div class="ff2 fbk">
+            <div class="fbk-head"><div class="fbk-ttl">Your Rights — Right to Information</div><div class="fbk-act">RTI Act, 2064 (2007)</div></div>
+            <ul class="frts">
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Request any information from government bodies and public institutions</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Government must respond within 15 days (7 days urgent)</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">No reason required — just submit a written application</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Denial can be appealed to the National Information Commission</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Officials who withhold information wrongfully can be fined</span></li>
+            </ul>
+            <div class="fbk-foot"><button class="fbk-btn" onclick="fc('c4')">↩ Flip Back</button></div>
+          </div>
+        </div></div>
+
+        <div class="fw" id="c5"><div class="fi2">
+          <div class="ff2 ffr"><div class="ffr-body">
+            <div class="ffr-top"><div class="fcat">Intellectual Property</div><span class="bx b-ok">● In Force</span></div>
+            <div class="fttl">Copyright Act, 2059</div>
+            <div class="fyr">Enacted 2002 · प्रतिलिपि अधिकार ऐन</div>
+            <div class="fdsc">Protects creators of original works — writing, art, music, video, and code. Applies to online content creators and anyone whose work is reproduced without permission.</div>
+          </div><div class="ffr-foot"><button class="fbtn" onclick="fc('c5')"><span class="fbtn-ic">↻</span>Know Your Rights</button></div></div>
+          <div class="ff2 fbk">
+            <div class="fbk-head"><div class="fbk-ttl">Your Rights — Copyright</div><div class="fbk-act">Copyright Act, 2059 (2002)</div></div>
+            <ul class="frts">
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Your work is protected automatically the moment you create it</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">No one can reproduce your work without permission</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">You have the right to be credited as the author</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Unauthorised online use can be grounds for removal and compensation</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Protection lasts your lifetime plus 50 years</span></li>
+            </ul>
+            <div class="fbk-foot"><button class="fbk-btn" onclick="fc('c5')">↩ Flip Back</button></div>
+          </div>
+        </div></div>
+
+        <div class="fw" id="c6"><div class="fi2">
+          <div class="ff2 ffr"><div class="ffr-body">
+            <div class="ffr-top"><div class="fcat">Criminal / Digital</div><span class="bx b-ok">● In Force</span></div>
+            <div class="fttl">National Penal Code — Digital Provisions</div>
+            <div class="fyr">Enacted 2017 · मुलुकी अपराध संहिता, २०७४</div>
+            <div class="fdsc">Covers digital offences: non-consensual image sharing, online fraud, cyberbullying, digital threats, and online defamation — with criminal penalties.</div>
+          </div><div class="ffr-foot"><button class="fbtn" onclick="fc('c6')"><span class="fbtn-ic">↻</span>Know Your Rights</button></div></div>
+          <div class="ff2 fbk">
+            <div class="fbk-head"><div class="fbk-ttl">Your Rights — Penal Code (Digital)</div><div class="fbk-act">National Penal Code, 2074 (2017)</div></div>
+            <ul class="frts">
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Non-consensual intimate image sharing — file an FIR at local police</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Online fraud and scams — report to Nepal Police Cyber Bureau</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Online threats through messages or social media are criminal</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Online defamation is actionable — truth is a valid defence</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">You can file a firaad (private complaint) for digital crimes</span></li>
+            </ul>
+            <div class="fbk-foot"><button class="fbk-btn" onclick="fc('c6')">↩ Flip Back</button></div>
+          </div>
+        </div></div>
+
+      </div>
+    </div>
+  </div><!-- /dw-laws -->
+
+  <!-- TAB: Pending -->
+  <div id="dw-pending" class="rp">
+    <div class="rm">
+      <div class="rsh"><h2>Pending Digital Legislation</h2><p>Bills under parliamentary consideration that will significantly shape Nepal's digital future.</p></div>
+      <div class="alrt"><div class="al-ic">⚠</div><div class="al-tx"><strong>September 2025:</strong> Nepal blocked 26 platforms — Facebook, Instagram, WhatsApp, YouTube, X, LinkedIn and others — for failure to register under the Social Media Directive 2023. The Social Media Act (Bill) 2081 awaits parliamentary approval and has been criticised by <strong>UNESCO</strong> and civil society groups.</div></div>
+      <div class="fgrid">
+
+        <div class="fw" id="p1"><div class="fi2">
+          <div class="ff2 ffr"><div class="ffr-body">
+            <div class="ffr-top"><div class="fcat">Platform Regulation · 2025</div><span class="bx b-dr">◐ Pending Parliament</span></div>
+            <div class="fttl">Social Media Act (Bill), 2081</div>
+            <div class="fyr">Registered at National Assembly · January 28, 2025</div>
+            <div class="fdsc">Proposes mandatory licensing for all platforms, penalties up to NPR 3 lakh or 2 years imprisonment, and prohibition of anonymous accounts. Criticised by UNESCO and civil society.</div>
+          </div><div class="ffr-foot"><button class="fbtn" onclick="fc('p1')"><span class="fbtn-ic">↻</span>Proposed Rights Impact</button></div></div>
+          <div class="ff2 fbk">
+            <div class="fbk-head"><div class="fbk-ttl">What This Bill Means For You</div><div class="fbk-act">Social Media Act Bill, 2081 — Proposed, not yet law</div></div>
+            <ul class="frts">
+              <li class="fri"><span class="fri-ck">⚠</span><span class="fri-tx">Anonymous accounts would be prohibited — identity verification required</span></li>
+              <li class="fri"><span class="fri-ck">⚠</span><span class="fri-tx">Liking or sharing prohibited content could attract criminal liability</span></li>
+              <li class="fri"><span class="fri-ck">⚠</span><span class="fri-tx">"National security" and "hate speech" are vaguely defined — risk of misuse</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Formal grievance mechanism proposed for users against platforms</span></li>
+              <li class="fri"><span class="fri-ck">⚠</span><span class="fri-tx">UNESCO and civil society have called for withdrawal or major revision</span></li>
+            </ul>
+            <div class="fbk-foot"><button class="fbk-btn" onclick="fc('p1')">↩ Flip Back</button></div>
+          </div>
+        </div></div>
+
+        <div class="fw" id="p2"><div class="fi2">
+          <div class="ff2 ffr"><div class="ffr-body">
+            <div class="ffr-top"><div class="fcat">Cybersecurity · 2024</div><span class="bx b-dr">◐ Under Review</span></div>
+            <div class="fttl">IT and Cybersecurity Bill, 2080</div>
+            <div class="fyr">Introduced 2024 · Under Ministerial Review</div>
+            <div class="fdsc">Aims to replace the Electronic Transactions Act. Covers critical infrastructure protection, mandatory security audits, and electronic public services. Raises concerns about privacy and surveillance.</div>
+          </div><div class="ffr-foot"><button class="fbtn" onclick="fc('p2')"><span class="fbtn-ic">↻</span>Proposed Rights Impact</button></div></div>
+          <div class="ff2 fbk">
+            <div class="fbk-head"><div class="fbk-ttl">What This Bill Means For You</div><div class="fbk-act">IT and Cybersecurity Bill, 2080 — Draft, not yet law</div></div>
+            <ul class="frts">
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Banks and hospitals would need annual cybersecurity audits</span></li>
+              <li class="fri"><span class="fri-ck">✓</span><span class="fri-tx">Government services would move online — fewer physical visits</span></li>
+              <li class="fri"><span class="fri-ck">⚠</span><span class="fri-tx">Authorities may access private communications without sufficient judicial oversight</span></li>
+              <li class="fri"><span class="fri-ck">⚠</span><span class="fri-tx">Vague online behaviour restrictions risk prosecuting ordinary citizens</span></li>
+              <li class="fri"><span class="fri-ck">⚠</span><span class="fri-tx">Duplicates social media licensing already in the Social Media Bill</span></li>
+            </ul>
+            <div class="fbk-foot"><button class="fbk-btn" onclick="fc('p2')">↩ Flip Back</button></div>
+          </div>
+        </div></div>
+
+      </div>
+    </div>
+  </div><!-- /dw-pending -->
+
+  <!-- TAB: Gaps -->
+  <div id="dw-gaps" class="rp">
+    <div class="rm">
+      <div class="rsh"><h2>Identified Policy Gaps</h2><p>Critical areas where Nepal has no law or existing law is inadequate — leaving citizens legally unprotected.</p></div>
+      <div class="fgrid">
+
+        <div class="fw" id="g1"><div class="fi2">
+          <div class="ff2 ffr"><div class="ffr-body">
+            <div class="ffr-top"><div class="fcat">Data Protection · Gap</div><span class="bx b-no">✗ No Legislation</span></div>
+            <div class="fttl">No Comprehensive Data Protection Law</div>
+            <div class="fyr">Privacy Act 2018 is insufficient · Gap as of 2025</div>
+            <div class="fdsc">Nepal has no dedicated data protection authority or comprehensive data protection statute. The Privacy Act provides partial coverage but lacks critical modern protections.</div>
+          </div><div class="ffr-foot"><button class="fbtn" onclick="fc('g1')"><span class="fbtn-ic">↻</span>Rights You're Missing</button></div></div>
+          <div class="ff2 fbk">
+            <div class="fbk-head"><div class="fbk-ttl">Rights You Don't Currently Have</div><div class="fbk-act">Data Protection Gap — 2025</div></div>
+            <ul class="frts">
+              <li class="fri"><span class="fri-ck">✗</span><span class="fri-tx">No independent authority to complain to if companies misuse your data</span></li>
+              <li class="fri"><span class="fri-ck">✗</span><span class="fri-tx">No legal right to be notified if a company suffers a data breach</span></li>
+              <li class="fri"><span class="fri-ck">✗</span><span class="fri-tx">No right to data portability between platforms</span></li>
+              <li class="fri"><span class="fri-ck">✗</span><span class="fri-tx">No rules on cross-border data transfers</span></li>
+              <li class="fri"><span class="fri-ck">✗</span><span class="fri-tx">No sector-specific protections for healthcare or financial data</span></li>
+            </ul>
+            <div class="fbk-foot"><button class="fbk-btn" onclick="fc('g1')">↩ Flip Back</button></div>
+          </div>
+        </div></div>
+
+        <div class="fw" id="g2"><div class="fi2">
+          <div class="ff2 ffr"><div class="ffr-body">
+            <div class="ffr-top"><div class="fcat">Cybercrime · International</div><span class="bx b-no">✗ Not Acceded</span></div>
+            <div class="fttl">Budapest Convention on Cybercrime</div>
+            <div class="fyr">Council of Europe · 2001 · Nepal not a party</div>
+            <div class="fdsc">The only binding international cybercrime treaty. Without it, Nepal cannot formally obtain digital evidence from other countries — leaving cross-border scams largely unaddressed.</div>
+          </div><div class="ffr-foot"><button class="fbtn" onclick="fc('g2')"><span class="fbtn-ic">↻</span>Why This Matters</button></div></div>
+          <div class="ff2 fbk">
+            <div class="fbk-head"><div class="fbk-ttl">How This Gap Affects You</div><div class="fbk-act">Budapest Convention — Gap Analysis</div></div>
+            <ul class="frts">
+              <li class="fri"><span class="fri-ck">✗</span><span class="fri-tx">Cross-border online fraud targeting Nepalis is very hard to prosecute</span></li>
+              <li class="fri"><span class="fri-ck">✗</span><span class="fri-tx">Migrant workers targeted by foreign scams have little legal recourse</span></li>
+              <li class="fri"><span class="fri-ck">✗</span><span class="fri-tx">Evidence on foreign servers cannot easily be obtained by Nepali authorities</span></li>
+              <li class="fri"><span class="fri-ck">✗</span><span class="fri-tx">Sextortion from abroad is extremely difficult to prosecute</span></li>
+              <li class="fri"><span class="fri-ck">→</span><span class="fri-tx">Accession to the Budapest Convention would solve this directly</span></li>
+            </ul>
+            <div class="fbk-foot"><button class="fbk-btn" onclick="fc('g2')">↩ Flip Back</button></div>
+          </div>
+        </div></div>
+
+      </div>
+    </div>
+  </div><!-- /dw-gaps -->
+
+  <div class="rft">
+    <div><div class="rft-nm">Digital Law and Policy Centre Pvt. Ltd.</div><div class="rft-sb">Kathmandu · Est. 2022</div></div>
+    <div class="rft-ds">For informational purposes only. Does not constitute legal advice. Updated May 2025.</div>
+  </div>
+</div><!-- /pg-dw -->
+
+<!-- ════════════════════════════════════════
+     LAW INDEX
+════════════════════════════════════════ -->
+<div id="pg-law" class="pg">
+  <div class="rh">
+    <p class="rh-ey">Free Public Resource · Nepal Law Commission</p>
+    <h1>Nepal <em>Law Index</em></h1>
+    <p class="rh-dsc">Key legislation in force in Nepal — searchable by category. Each entry links to the official Nepal Law Commission database.</p>
+    <div class="rh-mt">
+      <div class="rh-mi">Source <span>Nepal Law Commission · lawcommission.gov.np</span></div>
+      <div class="rh-mi">Updated <span>May 2025</span></div>
+    </div>
+  </div>
+  <div class="rm">
+    <div class="rsh"><h2>Acts Currently in Force</h2><p>A curated reference of the most publicly relevant acts. Full alphabetical index at lawcommission.gov.np.</p></div>
+    <div class="fbar">
+      <span class="flbl">Filter:</span>
+      <button class="fb on" onclick="fltr('all',this)">All</button>
+      <button class="fb" onclick="fltr('con',this)">Constitutional</button>
+      <button class="fb" onclick="fltr('crim',this)">Criminal</button>
+      <button class="fb" onclick="fltr('civ',this)">Civil</button>
+      <button class="fb" onclick="fltr('dig',this)">Digital & Media</button>
+      <button class="fb" onclick="fltr('lab',this)">Labour</button>
+      <button class="fb" onclick="fltr('corp',this)">Corporate</button>
+      <button class="fb" onclick="fltr('hr',this)">Human Rights</button>
+      <button class="fb" onclick="fltr('fin',this)">Financial</button>
+      <button class="fb" onclick="fltr('env',this)">Environment</button>
+      <input class="srch" id="lsrch" type="text" placeholder="Search laws..." oninput="lsearch()">
+    </div>
+    <table class="ltbl">
+      <thead><tr><th style="width:32%">Act</th><th style="width:8%">Year</th><th style="width:12%">Category</th><th style="width:10%">Status</th><th style="width:26%">Summary</th><th style="width:12%">Source</th></tr></thead>
+      <tbody id="lbody">
+        <tr data-c="con"><td><div class="lnm">Constitution of Nepal</div><div class="lnp">नेपालको संविधान</div></td><td><div class="lyr">2015</div></td><td><div class="lct">Constitutional</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Supreme law. Establishes federal democratic republic, fundamental rights, and separation of powers.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/content/13437/nepal-s-constitution/" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="crim"><td><div class="lnm">National Penal Code</div><div class="lnp">मुलुकी अपराध संहिता, २०७४</div></td><td><div class="lyr">2017</div></td><td><div class="lct">Criminal</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Comprehensive criminal code covering offences, penalties, and rights of the accused.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1757" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="crim"><td><div class="lnm">National Criminal Procedure Code</div><div class="lnp">मुलुकी फौजदारी कार्यविधि संहिता, २०७४</div></td><td><div class="lyr">2017</div></td><td><div class="lct">Criminal</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Governs arrest, investigation, prosecution, trial, and sentencing procedure.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1757" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="crim"><td><div class="lnm">Prevention of Corruption Act</div><div class="lnp">भ्रष्टाचार निवारण ऐन, २०५९</div></td><td><div class="lyr">2002</div></td><td><div class="lct">Anti-corruption</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Defines and penalises corruption and abuse of authority. Enforced by CIAA.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1762" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="civ"><td><div class="lnm">National Civil Code</div><div class="lnp">मुलुकी देवानी संहिता, २०७४</div></td><td><div class="lyr">2017</div></td><td><div class="lct">Civil</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Consolidated civil law on property, contract, family, and inheritance.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1757" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="civ"><td><div class="lnm">Evidence Act</div><div class="lnp">प्रमाण ऐन, २०३१</div></td><td><div class="lyr">1974</div></td><td><div class="lct">Civil / Criminal</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Rules governing admissibility and weight of evidence in court proceedings.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1763" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="civ"><td><div class="lnm">Arbitration Act</div><div class="lnp">मध्यस्थता ऐन, २०५५</div></td><td><div class="lyr">1999</div></td><td><div class="lct">Civil / ADR</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Framework for arbitration and enforcement of arbitral awards.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1763" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="dig"><td><div class="lnm">Electronic Transactions Act</div><div class="lnp">विद्युतीय कारोबार सम्बन्धी ऐन, २०६३</div></td><td><div class="lyr">2008</div></td><td><div class="lct">Digital / Cyber</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Nepal's foundational digital law. Governs electronic records, digital signatures, and cybercrime.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1784" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="dig"><td><div class="lnm">Individual Privacy Act</div><div class="lnp">वैयक्तिक गोपनियता सम्बन्धी ऐन, २०७५</div></td><td><div class="lyr">2018</div></td><td><div class="lct">Privacy / Digital</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Nepal's primary privacy legislation. Protects personal data and requires consent for collection and use.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1765" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="dig"><td><div class="lnm">Social Media Directive (DMSM)</div><div class="lnp">सामाजिक सञ्जाल निर्देशिका, २०८०</div></td><td><div class="lyr">2023</div></td><td><div class="lct">Digital / Platform</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Requires platforms to register with MoCIT and appoint local representatives. Basis for Sept 2025 ban.</div></td><td><div class="lsc"><a href="https://mocit.gov.np" target="_blank">MoCIT ↗</a></div></td></tr>
+        <tr data-c="dig"><td><div class="lnm">Social Media Act Bill 2081</div><div class="lnp">सामाजिक सञ्जाल विधेयक, २०८१</div></td><td><div class="lyr">2025</div></td><td><div class="lct">Digital / Platform</div></td><td><span class="bx b-dr">◐ Pending</span></td><td><div class="ldc">Pending parliament. Proposes mandatory licensing and content mandates. Criticised by UNESCO.</div></td><td><div class="lsc"><a href="https://parliament.gov.np" target="_blank">Parliament ↗</a></div></td></tr>
+        <tr data-c="dig"><td><div class="lnm">Right to Information Act</div><div class="lnp">सूचनाको हक सम्बन्धी ऐन, २०६४</div></td><td><div class="lyr">2007</div></td><td><div class="lct">Digital / Media</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Guarantees citizens the right to access information held by public bodies.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1784" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="dig"><td><div class="lnm">Copyright Act</div><div class="lnp">प्रतिलिपि अधिकार ऐन, २०५९</div></td><td><div class="lyr">2002</div></td><td><div class="lct">IP / Digital</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Protects intellectual property in literary, artistic, and digital works.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1790" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="dig"><td><div class="lnm">Telecommunications Act</div><div class="lnp">दूर सञ्चार ऐन, २०५३</div></td><td><div class="lyr">1997</div></td><td><div class="lct">Telecom</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Governs telecommunications licensing, spectrum management, and the NTA.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1784" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="lab"><td><div class="lnm">Labour Act</div><div class="lnp">श्रम ऐन, २०७४</div></td><td><div class="lyr">2017</div></td><td><div class="lct">Labour</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Governs employment relationships, wages, leave, workplace safety, and dispute resolution.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1783" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="lab"><td><div class="lnm">Foreign Employment Act</div><div class="lnp">वैदेशिक रोजगार ऐन, २०६४</div></td><td><div class="lyr">2007</div></td><td><div class="lct">Labour / Migration</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Regulates Nepal's migrant workforce, recruitment agencies, worker protections, and welfare fund.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1783" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="lab"><td><div class="lnm">Social Security Act</div><div class="lnp">सामाजिक सुरक्षा ऐन, २०७५</div></td><td><div class="lyr">2018</div></td><td><div class="lct">Labour / Social</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Contributory social security fund covering medical, maternity, accident, and old-age benefits.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1765" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="corp"><td><div class="lnm">Companies Act</div><div class="lnp">कम्पनी ऐन, २०६३</div></td><td><div class="lyr">2006</div></td><td><div class="lct">Corporate</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Governs incorporation, management, and dissolution of companies in Nepal.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1769" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="corp"><td><div class="lnm">Foreign Investment & Technology Transfer Act</div><div class="lnp">विदेशी लगानी तथा प्रविधि हस्तान्तरण ऐन, २०७५</div></td><td><div class="lyr">2019</div></td><td><div class="lct">Investment</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Governs FDI in Nepal — permitted sectors, repatriation of profits, and technology transfer.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1769" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="corp"><td><div class="lnm">Public Procurement Act</div><div class="lnp">सार्वजनिक खरिद ऐन, २०६३</div></td><td><div class="lyr">2007</div></td><td><div class="lct">Procurement</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Governs government procurement to ensure transparency and value for money.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1762" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="hr"><td><div class="lnm">Children's Act</div><div class="lnp">बालबालिका सम्बन्धी ऐन, २०७५</div></td><td><div class="lyr">2018</div></td><td><div class="lct">Child Rights</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Protects children from exploitation and abuse. Aligns with the UN Convention on the Rights of the Child.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1790" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="hr"><td><div class="lnm">Domestic Violence Act</div><div class="lnp">घरेलु हिंसा (कसूर र सजाय) ऐन, २०६६</div></td><td><div class="lyr">2009</div></td><td><div class="lct">Gender / HR</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Criminalises domestic violence and provides interim protection orders for victims.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1790" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="hr"><td><div class="lnm">Caste Discrimination &amp; Untouchability Act</div><div class="lnp">जातीय छुवाछूत र भेदभाव ऐन, २०६८</div></td><td><div class="lyr">2011</div></td><td><div class="lct">Human Rights</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Criminalises caste-based discrimination and untouchability in any form.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1791" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="hr"><td><div class="lnm">Legal Aid Act</div><div class="lnp">कानूनी सहायता सम्बन्धी ऐन, २०५४</div></td><td><div class="lyr">1997</div></td><td><div class="lct">Access to Justice</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Provides free legal aid to economically disadvantaged persons in proceedings.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1763" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="fin"><td><div class="lnm">Nepal Rastra Bank Act</div><div class="lnp">नेपाल राष्ट्र बैङ्क ऐन, २०५८</div></td><td><div class="lyr">2002</div></td><td><div class="lct">Financial</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Establishes NRB as central bank, governing monetary policy and financial stability.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1768" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="fin"><td><div class="lnm">Banks &amp; Financial Institutions Act (BAFIA)</div><div class="lnp">बैङ्क तथा वित्तीय संस्था सम्बन्धी ऐन, २०७३</div></td><td><div class="lyr">2017</div></td><td><div class="lct">Banking</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Regulates commercial banks, development banks, and finance companies in Nepal.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1768" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="env"><td><div class="lnm">Environment Protection Act</div><div class="lnp">वातावरण संरक्षण ऐन, २०७६</div></td><td><div class="lyr">2019</div></td><td><div class="lct">Environment</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Framework for environmental protection. Requires EIA for major projects.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1787" target="_blank">Law Commission ↗</a></div></td></tr>
+        <tr data-c="env"><td><div class="lnm">Forests Act</div><div class="lnp">वन ऐन, २०७६</div></td><td><div class="lyr">2019</div></td><td><div class="lct">Environment</div></td><td><span class="bx b-ok">● In Force</span></td><td><div class="ldc">Governs national forests, community forestry, protected areas, and REDD+.</div></td><td><div class="lsc"><a href="https://lawcommission.gov.np/category/1787" target="_blank">Law Commission ↗</a></div></td></tr>
+      </tbody>
+    </table>
+    <div class="nores" id="lnores" style="display:none">No laws match your search.</div>
+    <div class="dbox" style="margin-top:2rem">
+      <p class="dbox-l">Full Database</p>
+      <p>For all 200+ acts visit the <a href="https://lawcommission.gov.np/pages/alphabetical-index-of-acts/" target="_blank">Nepal Law Commission official database ↗</a></p>
+    </div>
+  </div>
+</div><!-- /pg-law -->
+
+<!-- ════════════════════════════════════════
+     TREATY MAP
+════════════════════════════════════════ -->
+<div id="pg-tr" class="pg">
+  <div class="rh">
+    <p class="rh-ey">International Law · OHCHR · ILO NORMLEX</p>
+    <h1>Nepal <em>Treaty Map</em></h1>
+    <p class="rh-dsc">Nepal's ratification status on major international human rights, labour, trade, and digital governance treaties — with gaps and practical implications for citizens.</p>
+    <div class="rh-mt">
+      <div class="rh-mi">Sources <span>OHCHR · UN Nepal · ILO NORMLEX</span></div>
+      <div class="rh-mi">Updated <span>May 2025</span></div>
+    </div>
+  </div>
+  <div class="rm">
+    <div class="rsh"><h2>Ratification Status Overview</h2></div>
+    <div class="tsc">
+      <div class="tsc-c"><div class="tsc-n gn">14</div><div class="tsc-l">Core Treaties Ratified</div></div>
+      <div class="tsc-c"><div class="tsc-n am">3</div><div class="tsc-l">Signed / Not Ratified</div></div>
+      <div class="tsc-c"><div class="tsc-n rd">6</div><div class="tsc-l">Key Gaps — Not Joined</div></div>
+      <div class="tsc-c"><div class="tsc-n dk">0</div><div class="tsc-l">Digital / Cyber Treaties Ratified</div></div>
+    </div>
+    <div class="tgrp">
+      <div class="tgrp-t">UN Core Human Rights Treaties</div>
+      <table class="ttbl"><thead><tr><th style="width:36%">Treaty</th><th style="width:8%">Adopted</th><th style="width:12%">Status</th><th style="width:10%">Ratified</th><th style="width:34%">Notes</th></tr></thead>
+      <tbody>
+        <tr><td><div class="tnm">ICCPR — International Covenant on Civil and Political Rights</div></td><td><div class="tyr">1966</div></td><td><span class="bx b-ok">✓ Ratified</span></td><td><div class="tyr">1991</div></td><td><div class="tnt">Art 17 (privacy) and Art 19 (expression) directly relevant to Nepal's digital law debates.</div></td></tr>
+        <tr><td><div class="tnm">ICESCR — International Covenant on Economic, Social and Cultural Rights</div></td><td><div class="tyr">1966</div></td><td><span class="bx b-ok">✓ Ratified</span></td><td><div class="tyr">1991</div></td><td><div class="tnt">Three periodic reports submitted. Relevant to education, health, and housing rights.</div></td></tr>
+        <tr><td><div class="tnm">CEDAW — Convention on Elimination of Discrimination Against Women</div></td><td><div class="tyr">1979</div></td><td><span class="bx b-ok">✓ Ratified</span></td><td><div class="tyr">1991</div></td><td><div class="tnt">Optional Protocol not signed — individual complaints unavailable for Nepali women.</div></td></tr>
+        <tr><td><div class="tnm">CRC — Convention on the Rights of the Child</div></td><td><div class="tyr">1989</div></td><td><span class="bx b-ok">✓ Ratified</span></td><td><div class="tyr">1990</div></td><td><div class="tnt">OP on children in armed conflict ratified 2007. OP on sale of children ratified 2006.</div></td></tr>
+        <tr><td><div class="tnm">CAT — Convention Against Torture</div></td><td><div class="tyr">1984</div></td><td><span class="bx b-ok">✓ Ratified</span></td><td><div class="tyr">1991</div></td><td><div class="tnt">OPCAT (independent prison monitoring) not ratified.</div></td></tr>
+        <tr><td><div class="tnm">CRPD — Convention on Rights of Persons with Disabilities</div></td><td><div class="tyr">2006</div></td><td><span class="bx b-ok">✓ Ratified</span></td><td><div class="tyr">2010</div></td><td><div class="tnt">Domestic implementation: Persons with Disabilities Rights Act 2017.</div></td></tr>
+        <tr><td><div class="tnm">CED — Convention for Protection from Enforced Disappearance</div></td><td><div class="tyr">2006</div></td><td><span class="bx b-no">✗ Not Ratified</span></td><td><div class="tyr">—</div></td><td><div class="tnt gp">Nepal had 17,000+ conflict-era disappearances (1996–2006). OHCHR has encouraged ratification.</div></td></tr>
+        <tr><td><div class="tnm">CMW — Convention on Rights of Migrant Workers</div></td><td><div class="tyr">1990</div></td><td><span class="bx b-no">✗ Not Ratified</span></td><td><div class="tyr">—</div></td><td><div class="tnt gp">Over 3.5 million Nepalis work abroad. Ratification would strengthen bilateral worker protections.</div></td></tr>
+      </tbody></table>
+    </div>
+    <div class="tgrp">
+      <div class="tgrp-t">ILO Core Labour Conventions</div>
+      <table class="ttbl"><thead><tr><th style="width:36%">Convention</th><th style="width:8%">No.</th><th style="width:12%">Status</th><th style="width:10%">Ratified</th><th style="width:34%">Notes</th></tr></thead>
+      <tbody>
+        <tr><td><div class="tnm">Freedom of Association &amp; Right to Organise</div></td><td><div class="tyr">C087</div></td><td><span class="bx b-ok">✓ Ratified</span></td><td><div class="tyr">1996</div></td><td><div class="tnt">Rights limited in practice in Nepal's large informal sector.</div></td></tr>
+        <tr><td><div class="tnm">Right to Organise &amp; Collective Bargaining</div></td><td><div class="tyr">C098</div></td><td><span class="bx b-ok">✓ Ratified</span></td><td><div class="tyr">1996</div></td><td><div class="tnt">Operationalised through Labour Act 2017 and Trade Union Act 1992.</div></td></tr>
+        <tr><td><div class="tnm">Forced Labour Convention</div></td><td><div class="tyr">C029</div></td><td><span class="bx b-ok">✓ Ratified</span></td><td><div class="tyr">2002</div></td><td><div class="tnt">Kamaiya bonded labour abolished 2002. Haliya debt bondage declared abolished 2008.</div></td></tr>
+        <tr><td><div class="tnm">Worst Forms of Child Labour Convention</div></td><td><div class="tyr">C182</div></td><td><span class="bx b-ok">✓ Ratified</span></td><td><div class="tyr">2002</div></td><td><div class="tnt">Operationalised through Children's Act 2018.</div></td></tr>
+        <tr><td><div class="tnm">Equal Remuneration Convention</div></td><td><div class="tyr">C100</div></td><td><span class="bx b-ok">✓ Ratified</span></td><td><div class="tyr">1976</div></td><td><div class="tnt">Labour Act 2017 includes equal pay provisions.</div></td></tr>
+        <tr><td><div class="tnm">Discrimination (Employment) Convention</div></td><td><div class="tyr">C111</div></td><td><span class="bx b-ok">✓ Ratified</span></td><td><div class="tyr">1976</div></td><td><div class="tnt">Enforcement through Caste Discrimination Act and Labour Act 2017.</div></td></tr>
+        <tr><td><div class="tnm">Domestic Workers Convention</div></td><td><div class="tyr">C189</div></td><td><span class="bx b-no">✗ Not Ratified</span></td><td><div class="tyr">—</div></td><td><div class="tnt gp">Hundreds of thousands of domestic workers — mostly women — have minimal legal protections.</div></td></tr>
+      </tbody></table>
+    </div>
+    <div class="tgrp">
+      <div class="tgrp-t">Digital, Trade &amp; Environmental Treaties</div>
+      <table class="ttbl"><thead><tr><th style="width:36%">Treaty</th><th style="width:8%">Adopted</th><th style="width:12%">Status</th><th style="width:10%">Year</th><th style="width:34%">Notes</th></tr></thead>
+      <tbody>
+        <tr><td><div class="tnm">Budapest Convention on Cybercrime</div><div class="tab">Council of Europe</div></td><td><div class="tyr">2001</div></td><td><span class="bx b-no">✗ Not Acceded</span></td><td><div class="tyr">—</div></td><td><div class="tnt gp">Only binding international cybercrime treaty. No cross-border MLA framework for cyber evidence exists for Nepal.</div></td></tr>
+        <tr><td><div class="tnm">WTO Agreement &amp; Accession</div></td><td><div class="tyr">2004</div></td><td><span class="bx b-mb">✓ Member</span></td><td><div class="tyr">2004</div></td><td><div class="tnt">First LDC to accede through full working party process. Bound by TRIPS, GATS, and GATT.</div></td></tr>
+        <tr><td><div class="tnm">Paris Agreement on Climate Change</div></td><td><div class="tyr">2015</div></td><td><span class="bx b-ok">✓ Ratified</span></td><td><div class="tyr">2016</div></td><td><div class="tnt">Nepal submitted NDC. Actively engages in Loss and Damage discussions.</div></td></tr>
+        <tr><td><div class="tnm">UN Convention Against Corruption (UNCAC)</div></td><td><div class="tyr">2003</div></td><td><span class="bx b-ok">✓ Ratified</span></td><td><div class="tyr">2011</div></td><td><div class="tnt">Implementation through Prevention of Corruption Act 2002 and the CIAA.</div></td></tr>
+        <tr><td><div class="tnm">Marrakesh Treaty — Access for Visually Impaired Persons</div><div class="tab">WIPO</div></td><td><div class="tyr">2013</div></td><td><span class="bx b-sg">◑ Signed</span></td><td><div class="tyr">—</div></td><td><div class="tnt gp">Signed but not ratified. Relevant to digital access rights.</div></td></tr>
+      </tbody></table>
+    </div>
+    <div class="dbox">
+      <p class="dbox-l">Official Sources</p>
+      <p>OHCHR: <a href="https://tbinternet.ohchr.org/_layouts/15/TreatyBodyExternal/Treaty.aspx?CountryID=122" target="_blank">Nepal ratification status ↗</a> · ILO NORMLEX: <a href="https://normlex.ilo.org/dyn/nrmlx_en/f?p=NORMLEXPUB:11200:0::NO::P11200_COUNTRY_ID:103197" target="_blank">Nepal ILO conventions ↗</a></p>
+    </div>
+  </div>
+  <div class="rft">
+    <div><div class="rft-nm">Digital Law and Policy Centre Pvt. Ltd.</div><div class="rft-sb">Kathmandu · Est. 2022</div></div>
+    <div class="rft-ds">Informational resource compiled from official OHCHR and ILO databases. Does not constitute legal advice. Updated May 2025.</div>
+  </div>
+</div><!-- /pg-tr -->
+
+</div><!-- /app -->
+
+<script>
+// ── EmailJS ──────────────────────────────────────
+const EJ_KEY = 'YOUR_PUBLIC_KEY';
+const EJ_SVC = 'YOUR_SERVICE_ID';
+const EJ_TPL = 'YOUR_TEMPLATE_ID';
+emailjs.init({ publicKey: EJ_KEY });
+
+// ── Page switching (top bar tabs) ─────────────────
+function showPg(id) {
+  document.querySelectorAll('.pg').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tb-btn').forEach(b => b.classList.remove('on'));
+  document.getElementById('pg-' + id).classList.add('on');
+  document.getElementById('tb-' + id).classList.add('on');
+  document.querySelectorAll('.sb-a').forEach(a => a.classList.remove('on'));
+  window.scrollTo(0, 0);
+}
+
+// ── Sidebar + scroll spy (main page only) ─────────
+function showMain() {
+  document.querySelectorAll('.pg').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tb-btn').forEach(b => b.classList.remove('on'));
+  document.getElementById('pg-main').classList.add('on');
+}
+
+function goHome() { showMain(); window.scrollTo(0,0); closeSB(); }
+
+const SECS = ['about','practice','digital-lawyer','advocacy','team','contact'];
+
+function goTo(id) {
+  showMain();
+  setTimeout(() => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    SECS.forEach(s => { const a = document.getElementById('sl-'+s); if(a) a.classList.remove('on'); });
+    const a = document.getElementById('sl-'+id);
+    if (a) a.classList.add('on');
+  }, 40);
+  closeSB();
+}
+
+window.addEventListener('scroll', () => {
+  if (!document.getElementById('pg-main').classList.contains('on')) return;
+  let cur = SECS[0];
+  SECS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= 90) cur = id;
+  });
+  SECS.forEach(id => { const a = document.getElementById('sl-'+id); if(a) a.classList.remove('on'); });
+  const a = document.getElementById('sl-'+cur);
+  if (a) a.classList.add('on');
+});
+
+// ── Sidebar mobile ────────────────────────────────
+function toggleSB() { document.getElementById('sb').classList.toggle('open'); }
+function closeSB() { if (window.innerWidth <= 900) document.getElementById('sb').classList.remove('open'); }
+document.addEventListener('click', e => {
+  const sb = document.getElementById('sb');
+  if (window.innerWidth <= 900 && sb.classList.contains('open') && !sb.contains(e.target) && !e.target.closest('.hbg')) sb.classList.remove('open');
+});
+
+// ── Scroll reveal ─────────────────────────────────
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.rv').forEach(r => obs.observe(r));
+
+// ── Resource sub-tabs (Digital Watch) ────────────
+function switchTab(el, id) {
+  el.closest('.pg').querySelectorAll('.rt').forEach(t => t.classList.remove('on'));
+  el.closest('.pg').querySelectorAll('.rp').forEach(p => p.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById(id).classList.add('on');
+}
+
+// ── Flip cards ────────────────────────────────────
+function fc(id) { document.getElementById(id).classList.toggle('flip'); }
+
+// ── Law Index filter + search ─────────────────────
+function fltr(cat, btn) {
+  document.querySelectorAll('.fb').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('#lbody tr').forEach(r => {
+    r.classList.toggle('hid', cat !== 'all' && r.dataset.c !== cat);
+  });
+  document.getElementById('lnores').style.display = 'none';
+  document.getElementById('lsrch').value = '';
+}
+function lsearch() {
+  const q = document.getElementById('lsrch').value.toLowerCase();
+  let n = 0;
+  document.querySelectorAll('#lbody tr').forEach(r => {
+    const m = !q || r.textContent.toLowerCase().includes(q);
+    r.classList.toggle('hid', !m);
+    if (m) n++;
+  });
+  document.getElementById('lnores').style.display = n === 0 ? 'block' : 'none';
+}
+
+// ── Contact form ──────────────────────────────────
+function sendMsg(e) {
+  e.preventDefault();
+  const btn = document.getElementById('fsb');
+  const st = document.getElementById('fst');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  st.style.display = 'none';
+  emailjs.send(EJ_SVC, EJ_TPL, {
+    from_name:    document.getElementById('fn').value + ' ' + document.getElementById('ln').value,
+    from_email:   document.getElementById('em').value,
+    enquiry_type: document.getElementById('eq').value,
+    message:      document.getElementById('mg').value
+  }).then(() => {
+    st.textContent = '✓ Message sent — we will be in touch shortly.';
+    st.style.color = '#1a5c2a';
+    st.style.display = 'block';
+    document.getElementById('cform').reset();
+    btn.textContent = 'Send Enquiry →';
+    btn.disabled = false;
+  }).catch(() => {
+    st.textContent = '✗ Something went wrong. Please try again.';
+    st.style.color = '#6e1a1a';
+    st.style.display = 'block';
+    btn.textContent = 'Send Enquiry →';
+    btn.disabled = false;
+  });
+}
+</script>
+</body>
+</html>
